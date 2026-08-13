@@ -21,29 +21,29 @@ export function MarketingPage({
         <div>
           <div className="product-hero__meta"><ScopeBadge scope="business" /></div>
           <p className="eyebrow">THƯƠNG HIỆU · Ý TƯỞNG · CỐ VẤN</p>
-          <h1>Quán nên nói gì hôm nay?</h1>
-          <p>ANLIEN nhớ quán là ai, đang bán gì và muốn được khách nhớ đến như thế nào.</p>
+          <h1>Quán là ai. Hôm nay nên làm gì?</h1>
+          <p>ANLIEN nhớ quán là ai.</p>
         </div>
-        <div className="mini-status brand-status"><span>DNA</span><p>{dna.status}</p></div>
+        <div className="mini-status brand-status"><span>{dna.readiness}%</span><p>DNA thương hiệu</p></div>
       </header>
 
       <section className="brand-dna-card">
         <div className="brand-dna-card__title">
-          <p className="eyebrow">TÀI SẢN THƯƠNG HIỆU</p>
-          <h2>Brand DNA</h2>
+          <p className="eyebrow">DNA THƯƠNG HIỆU</p>
+          <h2>{dna.readiness}% hoàn thiện</h2>
           <span className="live-dot">{dna.status}</span>
         </div>
         <dl>
           <div><dt>Giọng thương hiệu</dt><dd>{dna.voice.join(" · ")}</dd></div>
           <div><dt>Khách chính</dt><dd>{dna.audience}</dd></div>
-          <div><dt>Lời hứa</dt><dd>{dna.promise}</dd></div>
+          <div><dt>Phong cách hình ảnh</dt><dd>{dna.visualStyle.join(" · ")}</dd></div>
           <div><dt>Cần bổ sung</dt><dd>{dna.touchpointsPending} điểm chạm</dd></div>
         </dl>
         <button className="text-link text-link--button" onClick={() => onAction("Xem DNA thương hiệu")}>Xem DNA thương hiệu <Arrow /></button>
       </section>
 
       <section className="marketing-ideas-section">
-        <SectionIntro eyebrow="KHO Ý TƯỞNG" title="Có 4 ý tưởng đáng làm hôm nay" />
+        <SectionIntro eyebrow="HÔM NAY NÊN LÀM GÌ?" title={`${snapshot.marketing.ideas.length} ý tưởng từ DNA và bối cảnh quán`} />
         <div className="marketing-ideas-layout">
           <div className="idea-picker">
             {snapshot.marketing.ideas.map((item, index) => (

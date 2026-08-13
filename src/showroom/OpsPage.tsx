@@ -15,6 +15,10 @@ export function OpsPage({
   const [lastDone, setLastDone] = useState(false);
   const shift = snapshot.ops.shift;
   const checklist = snapshot.ops.checklist;
+  const opsMetrics = snapshot.summaries.ops.metrics;
+  const attendanceMetric = opsMetrics.find((metric) => metric.id === "ops-attendance") ?? opsMetrics[0];
+  const completionMetric = opsMetrics.find((metric) => metric.id === "ops-checklist") ?? opsMetrics[0];
+  const overdueMetric = opsMetrics.find((metric) => metric.id === "ops-overdue") ?? opsMetrics[0];
   const completed = checklist.completed + (lastDone ? 1 : 0);
 
   return (
@@ -24,9 +28,9 @@ export function OpsPage({
           <div className="product-hero__meta"><ScopeBadge scope="location" /></div>
           <p className="eyebrow">OPS · VẬN HÀNH</p>
           <h1>Không ở quán, vẫn biết mọi việc đến đâu.</h1>
-          <p>Biết ai đang làm, việc nào đã xong và quy trình nào đang chậm.</p>
+          <p>Ai đang làm. Việc nào đang chậm.</p>
         </div>
-        <div className="mini-status"><span>8/9</span><p>nhân sự đã vào ca</p></div>
+        <div className="mini-status"><span>{attendanceMetric.value.replaceAll(" ", "")}</span><p>{attendanceMetric.label}</p></div>
       </header>
 
       <section className="ops-grid">
@@ -73,8 +77,8 @@ export function OpsPage({
       <section className="remote-proof">
         <SectionIntro eyebrow="CHỦ QUÁN CHỈ XỬ LÝ NGOẠI LỆ" title="Quán đang làm đúng quy trình không?" />
         <div className="proof-grid">
-          <div><strong>{lastDone ? "20/20" : "17/20"}</strong><span>mục đã hoàn thành</span><small>từ checklist tại cơ sở</small></div>
-          <div><strong>02</strong><span>việc đang trễ</span><small>cần quản lý xử lý</small></div>
+          <div><strong>{lastDone ? "20/20" : completionMetric.value.replaceAll(" ", "")}</strong><span>mục đã hoàn thành</span><small>từ checklist tại cơ sở</small></div>
+          <div><strong>{overdueMetric.value.padStart(2, "0")}</strong><span>việc đang trễ</span><small>cần quản lý xử lý</small></div>
           <div><strong>01</strong><span>bằng chứng chờ xem</span><small>ảnh đóng ca · Demo</small></div>
         </div>
       </section>

@@ -21,6 +21,9 @@ test("server-renders the ANLIEN public showroom", async () => {
   assert.match(html, /FnB Ăn Liền \(Demo quán\)/);
   assert.match(html, /Cần bạn xử lý/);
   assert.match(html, /Phân công việc/);
+  assert.match(html, /Khách hôm nay/);
+  assert.match(html, /DNA thương hiệu/);
+  assert.match(html, />Vận hành</);
   assert.match(html, /ANLIEN Marketing/);
   assert.match(html, /ANLIEN Loyalty/);
   assert.match(html, /ANLIEN Ops/);
@@ -30,7 +33,7 @@ test("server-renders the ANLIEN public showroom", async () => {
 
 test("server-renders every product demo route", async () => {
   const routes = [
-    ["/demo/marketing", /Quán nên nói gì hôm nay\?/],
+    ["/demo/marketing", /Quán là ai\. Hôm nay nên làm gì\?/],
     ["/demo/loyalty", /Khách của quán đang thế nào\?/],
     ["/demo/ops", /Không ở quán, vẫn biết mọi việc đến đâu\./],
     ["/demo/day", /Một ngày với ANLIEN/i],

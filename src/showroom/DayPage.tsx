@@ -13,11 +13,11 @@ export function DayPage({ snapshot }: { snapshot: DemoSnapshot }) {
   return (
     <div className="day-page">
       <header className="day-hero">
-        <div><p className="eyebrow">MỘT NGÀY VỚI ANLIEN</p><h1>Nắm việc cần làm.<br />Phần còn lại vẫn chạy.</h1></div>
-        <p>Từ lúc mở cửa đến cuối ngày, mỗi thông báo đều dẫn tới một hành động cụ thể.</p>
+        <div><p className="eyebrow">MỘT NGÀY VỚI ANLIEN</p><h1>Từ mở quán<br />đến chốt ngày.</h1></div>
+        <p>Mỗi tín hiệu dẫn tới một việc rõ ràng.</p>
       </header>
       <section className="timeline-section">
-        <SectionIntro eyebrow="FN B ĂN LIỀN · NGÀY MẪU" title="Ngày mai sẽ diễn ra như thế này" />
+        <SectionIntro eyebrow="FN B ĂN LIỀN · NGÀY MẪU" title="Một ngày, năm thời điểm cần nắm" />
         <ol className="day-timeline">
           {snapshot.timeline.map((moment, index) => (
             <li key={moment.time} className={`day-moment day-moment--${moment.product}`}>
@@ -35,7 +35,7 @@ export function DayPage({ snapshot }: { snapshot: DemoSnapshot }) {
       </section>
       <section className="day-outro">
         <p className="eyebrow">22:31 · BẠN ĐÃ NẮM ĐƯỢC CẢ NGÀY</p>
-        <h2>Không cần học AI.<br />Chỉ cần biết quán đang thế nào.</h2>
+        <h2>Việc còn lại đã rõ.<br />Ngày mai bắt đầu gọn hơn.</h2>
         <Link href="/demo" className="button button--light">Quay lại tổng quan ↗</Link>
       </section>
     </div>

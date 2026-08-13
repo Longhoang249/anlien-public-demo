@@ -22,7 +22,7 @@ const navItems: Array<{
   { page: "overview", href: "/demo", label: "Tổng quan", promise: "Hôm nay", short: "Tổng quan" },
   { page: "marketing", href: "/demo/marketing", label: "Thương hiệu", promise: "DNA và ý tưởng", short: "Thương hiệu" },
   { page: "loyalty", href: "/demo/loyalty", label: "Khách hàng", promise: "Giữ khách", short: "Khách hàng" },
-  { page: "ops", href: "/demo/ops", label: "Nhân sự", promise: "Vận hành", short: "Nhân sự" },
+  { page: "ops", href: "/demo/ops", label: "Vận hành", promise: "Ca và SOP", short: "Vận hành" },
   { page: "day", href: "/demo/day", label: "Một ngày", promise: "Hành trình", short: "Một ngày" },
 ];
 
@@ -120,7 +120,7 @@ export function ShowroomApp({
         {page === "day" ? <DayPage snapshot={snapshot} /> : null}
         <footer className="site-footer">
           <div><span className="wordmark__mark" aria-hidden="true"><i /></span><strong>ANLIEN</strong></div>
-          <p>Nhân sự · Khách hàng · Thương hiệu</p>
+          <p>Vận hành · Khách hàng · Thương hiệu</p>
           <small>Demo với dữ liệu mẫu</small>
         </footer>
       </main>

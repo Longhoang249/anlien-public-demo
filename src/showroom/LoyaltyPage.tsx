@@ -14,6 +14,8 @@ export function LoyaltyPage({
   const [selected, setSelected] = useState("inactive");
   const [ready, setReady] = useState(false);
   const summary = snapshot.summaries.loyalty;
+  const memberMetric = summary.metrics.find((metric) => metric.id === "loyalty-members") ?? summary.metrics[0];
+  const inactiveGroup = snapshot.loyalty.groups.find((group) => group.id === "inactive");
 
   return (
     <div className="product-page product-page--loyalty">
@@ -22,9 +24,9 @@ export function LoyaltyPage({
           <div className="product-hero__meta"><ScopeBadge scope="business" /></div>
           <p className="eyebrow">LOYALTY · GIỮ KHÁCH</p>
           <h1>Khách của quán đang thế nào?</h1>
-          <p>Biết ai đang gắn bó, ai lâu chưa quay lại và nhóm nào cần được chăm sóc.</p>
+          <p>Ai đang gắn bó. Ai cần được chăm lại.</p>
         </div>
-        <div className="mini-status"><span>486</span><p>khách thành viên</p></div>
+        <div className="mini-status"><span>{memberMetric.value}</span><p>{memberMetric.label}</p></div>
       </header>
 
       <section className="loyalty-metrics">
@@ -67,7 +69,7 @@ export function LoyaltyPage({
           <h2>{snapshot.loyalty.offer.name}</h2>
           <p>{snapshot.loyalty.offer.value} · {snapshot.loyalty.offer.validity}</p>
           <dl>
-            <div><dt>Nhóm nhận</dt><dd>87 khách lâu chưa quay lại</dd></div>
+            <div><dt>Nhóm nhận</dt><dd>{inactiveGroup?.count ?? 0} khách lâu chưa quay lại</dd></div>
             <div><dt>Trạng thái</dt><dd>{ready ? "Sẵn sàng gửi" : "Bản nháp"}</dd></div>
           </dl>
           <button className="button button--dark" onClick={() => setReady(true)}>

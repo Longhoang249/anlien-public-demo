@@ -1,6 +1,6 @@
 # ANLIEN Shell Integration Readiness
 
-**Prototype:** ANLIEN Public Demo Shell  
+**Prototype:** ANLIEN Public Demo Shell V2.1
 **Business context:** `FnB Ăn Liền (Demo quán)`  
 **Current data mode:** deterministic mock fixtures only  
 **Connectivity:** no production API, database, authentication, SSO, or cross-product write
@@ -25,7 +25,7 @@ The shell must never query Marketing, Loyalty, or Ops internal tables directly. 
 
 | Shell domain | Product project | Domain ownership used by the shell |
 | --- | --- | --- |
-| Marketing | `dong-goi-thuong-hieu.nosync` (`dong-goi-thuong-hieu`) | Brand Context, Content, Creative, Campaign, Marketing activity |
+| Marketing | `dong-goi-thuong-hieu` | Brand DNA, Business Context, Idea, Content, Design, Campaign planning, Advice |
 | Loyalty | `fnbanlien-play` | Customer, Loyalty profile, Membership, Points/Xu, Voucher, Reward, Redemption, Retention activity |
 | Ops | `fnbanlien-tu-van-hanh` | Employee, Shift, Attendance, SOP, Checklist, Task, Evidence, Review/Approval |
 
@@ -33,22 +33,28 @@ The shell must never query Marketing, Loyalty, or Ops internal tables directly. 
 
 | UI field | Product owner | Current demo source | Future projection | Scope | Integration status |
 | --- | --- | --- | --- | --- | --- |
-| Content being prepared | Marketing | `marketingSummary` mock fixture | `marketing.content_summary.v1` | Business | Not connected |
-| Content pending review | Marketing | `marketingSummary` mock fixture | `marketing.review_queue.v1` | Business | Not connected |
-| Today content suggestion | Marketing | `marketingDemo` mock fixture | `marketing.daily_recommendation.v1` | Business | Not connected |
-| Prepared post draft | Marketing | `marketingDemo` mock fixture | `marketing.content_draft.v1` | Business | Not connected |
-| Draft review state | Marketing | local prototype state | Marketing domain action request (future, human-confirmed) | Business | Not connected |
-| Total customer members | Loyalty | `loyaltySummary` mock fixture | `loyalty.customer_summary.v1` | Business | Not connected |
-| Recently active customers | Loyalty | `loyaltyDemo.groups` mock fixture | `loyalty.customer_segments.v1` | Business | Not connected |
-| Inactive-customer segment | Loyalty | `loyaltySummary` + group mock fixture | `loyalty.customer_segments.v1` | Business | Not connected |
-| Voucher redeemed | Loyalty | `loyaltySummary` mock fixture | `loyalty.redemption_summary.v1` | Business | Not connected |
-| Return offer suggestion | Loyalty | `loyaltyDemo` mock fixture | `loyalty.retention_recommendation.v1` | Business | Not connected |
-| Employees scheduled | Ops | `opsSummary` mock fixture | `ops.shift_roster.v1` | Location | Not connected |
-| Employees checked in | Ops | `opsSummary` + shift mock fixture | `ops.attendance_projection.v1` | Location | Not connected |
-| Active shift | Ops | `opsDemo.shift` mock fixture | `ops.active_shift.v1` | Location | Not connected |
-| Checklist completion | Ops | `opsSummary` + checklist mock fixture | `ops.checklist_progress.v1` | Location | Not connected |
-| Overdue tasks | Ops | `opsSummary` mock fixture | `ops.task_attention.v1` | Location | Not connected |
-| Evidence waiting for review | Ops | demo-only overview fixture | `ops.evidence_review.v1` | Location | Not connected |
+| DNA thương hiệu 82% | Marketing | `ownerDashboardDemo.metrics.brandReadiness` | `marketing.brand_dna_summary.v1` | Business | Demo, not connected |
+| 3 điểm chạm cần bổ sung | Marketing | `ownerDashboardDemo.metrics.touchpointsPending` | `marketing.brand_touchpoints.v1` | Business | Demo, not connected |
+| 4 ý tưởng hôm nay | Marketing | `ownerDashboardDemo.metrics.ideasToday` | `marketing.daily_recommendation.v1` | Business | Demo, not connected |
+| Gợi ý đồ uống mát | Marketing | `marketingDemo.suggestion` | `marketing.daily_recommendation.v1` | Business | Demo, not connected |
+| Giọng, khách chính, phong cách hình ảnh | Marketing | `marketingDemo.brandDna` | `marketing.brand_dna_summary.v1` | Business | Demo, not connected |
+| Khách hôm nay 29 | Loyalty | `ownerDashboardDemo.metrics.customersToday` | `loyalty.daily_customer_activity.v1` | Business | Demo, not connected |
+| 23 khách quay lại | Loyalty | `ownerDashboardDemo.metrics.returningToday` | `loyalty.daily_customer_activity.v1` | Business | Demo, not connected |
+| 6 khách mới | Loyalty | `ownerDashboardDemo.metrics.newToday` | `loyalty.daily_customer_activity.v1` | Business | Demo, not connected |
+| 486 hồ sơ khách | Loyalty | `ownerDashboardDemo.metrics.customerProfiles` | `loyalty.customer_summary.v1` | Business | Demo, not connected |
+| 87 khách hơn 45 ngày chưa quay lại | Loyalty | `ownerDashboardDemo.metrics.inactiveCustomers` | `loyalty.customer_segments.v1` | Business | Demo, not connected |
+| 18 voucher dùng hôm nay | Loyalty | `ownerDashboardDemo.metrics.vouchersToday` | `loyalty.redemption_summary.v1` | Business | Demo, not connected |
+| 42 lượt chơi | Loyalty | `ownerDashboardDemo.metrics.gamePlaysToday` | `loyalty.activity_summary.v1` | Business | Demo, not connected |
+| 1 phản hồi cần xử lý | Loyalty | `ownerDashboardDemo.metrics.feedbackPending` | `loyalty.feedback_attention.v1` | Business | Demo, not connected |
+| Nhân sự vào ca 8/9 | Ops | `ownerDashboardDemo.metrics.staffCheckIn` | `ops.attendance_summary.v1` | Location | Demo, not connected |
+| Việc hoàn thành đúng 17/20 | Ops | `ownerDashboardDemo.metrics.taskCompletion` | `ops.task_completion.v1` | Location | Demo, not connected |
+| 2 việc trễ | Ops | `ownerDashboardDemo.metrics.opsOverdue` | `ops.task_attention.v1` | Location | Demo, not connected |
+| 1 việc chờ duyệt | Ops | `ownerDashboardDemo.metrics.opsPendingReview` | `ops.review_queue.v1` | Location | Demo, not connected |
+| 1 sự cố mở | Ops | `ownerDashboardDemo.metrics.opsOpenIssues` | `ops.open_issues.v1` | Location | Demo, not connected |
+| 0đ lệch bàn giao | Ops | `ownerDashboardDemo.metrics.opsCashDifference` | `ops.shift_handover_summary.v1` | Location | Demo, not connected |
+| Hiệu suất từng cơ sở | Ops | `ownerDashboardDemo.branches[].completion` | `ops.location_completion.v1` | Location | Demo, not connected |
+| Priority inbox | Marketing, Loyalty, Ops | `ownerDashboardDemo.priorities` | Product-owned attention projections | Business / Location | Demo, not connected |
+| Bảng ai đang làm gì | Ops | `ownerDashboardDemo.assignments` | `ops.active_assignments.v1` | Location | Demo, not connected |
 | Role-oriented visibility | Shell prototype | local UI state | Future identity + membership + entitlement contracts | Business / Location | Not connected; not authorization |
 | Business context | Shell prototype | `demo-business-fnb-an-lien` | Future verified Identity Bridge resolution | Business | Not connected |
 | Location context | Shell prototype | `demo-location-01` | Future verified Identity Bridge resolution | Location | Not connected |
@@ -82,15 +88,23 @@ The governance copies inside the Ops and Loyalty project directories are zero-by
 ## Intentional placeholders / not-connected areas
 
 - Signup/onboarding CTA opens a “Sắp sẵn sàng” explanation; there is no auth.
-- Quick actions and workflow buttons update local demo state or open an explanatory modal only.
-- “Duyệt”, “Lên lịch”, “Chuẩn bị ưu đãi”, “Nhắc Nam”, and checklist changes do not persist.
-- Role switching changes mock visibility and emphasis; it is not authorization.
+- Quick actions and workflow buttons update local demo state or open an explanatory panel only.
+- “Giao việc mẫu”, “Lưu ưu đãi mẫu”, “Nhắc Nam”, and checklist changes do not persist.
 - Business switcher contains one demo Business only.
 - Location context shows one synthetic Location and “Tất cả cơ sở”.
 - External product destinations are deliberately `null`; no links point at product production apps.
 - No real AI call, Supabase client, POS data, revenue attribution, customer PII, or production analytics is present.
 
+## V2.1 owner command center semantics
+
+- Overview copy is status-led. It does not explain software capabilities when a concrete signal is available.
+- Marketing is represented as Brand DNA, Business Context, ideas, design, content, campaign planning, and human-confirmed advice.
+- No content approval queue, scheduled publishing, or autonomous campaign execution is represented.
+- Loyalty metrics remain Business-scoped even when the Ops location filter is visible.
+- Ops metrics remain Location-aware and are the only metrics compared across demo locations.
+- Every Overview metric declares `owner`, `scope`, `status`, and `futureSource` in typed fixtures.
+- Product preview cards route only to local demo pages. No external product URL is active.
+
 ## Integration gate
 
 The shell is ready for UI/contract review only. Connectivity remains blocked until each product publishes an approved, versioned read projection and Identity Bridge mappings are verified under the platform governance process.
-

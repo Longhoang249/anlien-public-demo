@@ -57,9 +57,11 @@ export interface MarketingDemo {
   suggestion: string;
   reasons: string[];
   brandDna: {
+    readiness: number;
     status: string;
     voice: string[];
     audience: string;
+    visualStyle: string[];
     promise: string;
     touchpointsPending: number;
   };
@@ -133,38 +135,69 @@ export interface OwnerAssignment {
   status: "doing" | "review" | "late";
 }
 
+export type OwnerActionKey = "assign" | "customers" | "idea" | "feedback" | "brand";
+
+export interface OwnerPriority {
+  id: string;
+  owner: ProductKey;
+  scope: DataScope;
+  status: IntegrationStatus;
+  futureSource: string;
+  tone: "warning" | "neutral" | "success";
+  area: string;
+  title: string;
+  detail?: string;
+  action: OwnerActionKey;
+  actionLabel: string;
+}
+
+export interface OwnerQuickAction {
+  id: string;
+  label: string;
+  detail: string;
+  action: OwnerActionKey;
+}
+
+export interface OwnerProductPreview {
+  product: ProductKey;
+  eyebrow: string;
+  title: string;
+  promise: string;
+  features: string[];
+  facts: string[];
+  href: string;
+  actionLabel: string;
+}
+
 export interface OwnerDashboardDemo {
-  operations: {
-    staffCheckedIn: number;
-    staffScheduled: number;
-    tasksCompleted: number;
-    tasksTotal: number;
-    overdue: number;
-    pendingReview: number;
-    openIssues: number;
-    cashDifference: string;
-  };
-  customers: {
-    total: number;
-    newToday: number;
-    returningToday: number;
-    inactive: number;
-    vouchersToday: number;
-    gamePlaysToday: number;
-    feedbackPending: number;
-  };
-  brand: {
-    readiness: number;
-    ideasToday: number;
-    touchpointsPending: number;
-    upcomingMoment: string;
+  metrics: {
+    staffCheckIn: SummaryMetric;
+    taskCompletion: SummaryMetric;
+    customersToday: SummaryMetric;
+    returningToday: SummaryMetric;
+    newToday: SummaryMetric;
+    brandReadiness: SummaryMetric;
+    opsOverdue: SummaryMetric;
+    opsPendingReview: SummaryMetric;
+    opsOpenIssues: SummaryMetric;
+    opsCashDifference: SummaryMetric;
+    customerProfiles: SummaryMetric;
+    inactiveCustomers: SummaryMetric;
+    vouchersToday: SummaryMetric;
+    gamePlaysToday: SummaryMetric;
+    feedbackPending: SummaryMetric;
+    ideasToday: SummaryMetric;
+    touchpointsPending: SummaryMetric;
   };
   branches: Array<{
     name: string;
-    completion: number;
+    completion: SummaryMetric;
     status: string;
   }>;
   assignments: OwnerAssignment[];
+  priorities: OwnerPriority[];
+  quickActions: OwnerQuickAction[];
+  productPreviews: OwnerProductPreview[];
 }
 
 export interface DayMoment {

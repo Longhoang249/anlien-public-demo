@@ -1719,6 +1719,127 @@ select:focus-visible {
   .demo-modal h2 { font-size: 32px; }
 }
 
+/* Owner Command Center V2.1 refinements */
+.dashboard-head {
+  padding-top: 34px;
+}
+
+.dashboard-head h1 {
+  font-size: clamp(38px, 4.25vw, 54px);
+}
+
+.dashboard-head > div:first-child > p:last-child {
+  font-size: 14px;
+  font-weight: 550;
+}
+
+.priority-panel {
+  box-shadow: 0 12px 34px rgba(17, 24, 39, 0.065);
+}
+
+.priority-item:first-child {
+  background: #fffaf4;
+}
+
+.priority-item button {
+  min-width: 74px;
+}
+
+.signal-card {
+  min-height: 390px;
+}
+
+.product-preview-grid {
+  align-items: stretch;
+}
+
+.deep-tools-grid .product-preview {
+  display: flex;
+  min-height: 380px;
+  flex-direction: column;
+  padding: 24px;
+  border-top-width: 4px;
+}
+
+.deep-tools-grid .product-preview--ops { border-top-color: var(--blue); }
+.deep-tools-grid .product-preview--loyalty { border-top-color: var(--purple); }
+.deep-tools-grid .product-preview--marketing { border-top-color: var(--orange); }
+
+.product-preview > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.product-preview h3 {
+  margin: 9px 0 4px;
+  font-size: 25px;
+  letter-spacing: -.035em;
+}
+
+.product-preview .product-preview__promise {
+  min-height: auto;
+  margin: 0 0 20px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.product-preview__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.product-preview__features small {
+  padding: 6px 8px;
+  border-radius: 7px;
+  background: #f3f4f6;
+  color: #4b5563;
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.product-preview__facts {
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.product-preview__facts strong {
+  font-size: 12px;
+}
+
+.product-preview > b {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  font-size: 11px;
+}
+
+.idea-drawer-reasons {
+  display: grid;
+  gap: 10px;
+  padding: 17px;
+  border-radius: 12px;
+  background: var(--orange-soft);
+}
+
+.idea-drawer-reasons span {
+  color: #754213;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .dashboard-head { padding-top: 24px; }
+  .deep-tools-grid .product-preview { min-height: 340px; }
+}
+
 /* Owner dashboard */
 .dashboard-head {
   display: flex;
@@ -3585,4 +3706,14 @@ body {
   .idea-today h2 {
     font-size: 30px;
   }
+}
+
+/* V2.1 cascade guard */
+.dashboard-head { padding-top: 34px; }
+.dashboard-head h1 { font-size: clamp(38px, 4.25vw, 54px); }
+.dashboard-head > div:first-child > p:last-child { font-size: 14px; font-weight: 550; }
+.signal-card { min-height: 390px; }
+
+@media (max-width: 760px) {
+  .dashboard-head { padding-top: 24px; }
 }
