@@ -20,13 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       type: "website",
       locale: "vi_VN",
-      images: [{ url: new URL("/og-v2.png", origin).toString(), width: 1732, height: 908, alt: title }],
+      images: [{ url: new URL("/og-fnbanlien.png", origin).toString(), width: 1731, height: 909, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [new URL("/og-v2.png", origin).toString()],
+      images: [new URL("/og-fnbanlien.png", origin).toString()],
     },
   };
 }
@@ -43,7 +43,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Anton&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
       </head>

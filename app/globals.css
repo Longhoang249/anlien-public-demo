@@ -1724,7 +1724,7 @@ select:focus-visible {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
 
-/* Brand theme: Fnbanlien app softness + Long Hoang F&B editorial energy */
+/* Legacy theme layer */
 .topbar {
   border-bottom-color: rgba(226, 229, 234, 0.9);
   background: rgba(255, 255, 255, 0.94);
@@ -1809,7 +1809,7 @@ select:focus-visible {
   margin-bottom: 52px;
   padding: clamp(38px, 5vw, 70px);
   border-radius: 34px;
-  background: #59ad71;
+  background: #f7f5ff;
   box-shadow: 0 28px 70px rgba(52, 101, 65, 0.16);
 }
 
@@ -1827,7 +1827,7 @@ select:focus-visible {
 .draft-panel h2,
 .recommendation-band h2,
 .day-moment h2 {
-  font-family: "Anton", Impact, sans-serif;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-weight: 400;
   letter-spacing: -0.025em;
 }
@@ -1865,7 +1865,7 @@ select:focus-visible {
 .today-card {
   border: 0;
   border-radius: 28px;
-  box-shadow: 14px 14px 0 #39794c, 0 24px 55px rgba(24, 69, 39, 0.22);
+  box-shadow: 0 10px 26px rgba(17, 24, 39, 0.07);
 }
 
 .today-card::before {
@@ -1928,7 +1928,7 @@ select:focus-visible {
 .product-summary--ops { background: #eaf6ff; }
 
 .product-summary__head h3 {
-  font-family: "Anton", Impact, sans-serif;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-size: 34px;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -2107,7 +2107,7 @@ select:focus-visible {
 }
 
 .offer-card {
-  background: #dff1a3;
+  background: #f7f5ff;
 }
 
 .offer-card__seal {
@@ -2129,7 +2129,7 @@ select:focus-visible {
   margin-bottom: 32px;
   padding: clamp(38px, 6vw, 70px);
   border-radius: 32px;
-  background: #59ad71;
+  background: #f7f5ff;
   color: white;
   box-shadow: 0 24px 60px rgba(52, 101, 65, 0.15);
 }
@@ -2250,7 +2250,7 @@ select:focus-visible {
   overflow: hidden;
   border-radius: 24px;
   background: white;
-  box-shadow: 12px 12px 0 #39794c;
+  box-shadow: 0 10px 26px rgba(17, 24, 39, 0.07);
 }
 
 .owner-pulse > div {
@@ -2325,7 +2325,7 @@ select:focus-visible {
 }
 
 .owner-asset__metric strong {
-  font-family: "Anton", Impact, sans-serif;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-size: 64px;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -2364,14 +2364,14 @@ select:focus-visible {
   margin-block: 22px;
   padding: 42px 48px;
   border-radius: 26px;
-  background: #dff1a3;
+  background: #f7f5ff;
   box-shadow: 0 18px 50px rgba(48, 70, 38, 0.09);
 }
 
 .idea-today h2 {
   max-width: 720px;
   margin: 0;
-  font-family: "Anton", Impact, sans-serif;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-size: clamp(34px, 4.4vw, 58px);
   font-weight: 400;
   letter-spacing: -0.025em;
@@ -2453,7 +2453,7 @@ select:focus-visible {
 }
 
 .brand-status span {
-  font-family: "Anton", Impact, sans-serif;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-size: 38px;
   font-weight: 400;
   letter-spacing: 0;
@@ -2473,7 +2473,7 @@ select:focus-visible {
 
 .brand-dna-card__title h2 {
   margin: 8px 0 18px;
-  font-family: "Anton", Impact, sans-serif;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-size: 48px;
   font-weight: 400;
   text-transform: uppercase;
@@ -2576,7 +2576,7 @@ select:focus-visible {
 .idea-detail h2 {
   max-width: 600px;
   margin: 10px 0;
-  font-family: "Anton", Impact, sans-serif;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
   font-size: clamp(38px, 4vw, 54px);
   font-weight: 400;
   line-height: 1.03;
@@ -2753,7 +2753,7 @@ select:focus-visible {
 
   .owner-pulse {
     grid-template-columns: 1fr;
-    box-shadow: 7px 7px 0 #39794c;
+    box-shadow: 0 8px 24px rgba(17, 24, 39, 0.07);
   }
 
   .owner-pulse > div {
@@ -2802,7 +2802,7 @@ select:focus-visible {
   }
 
   .today-card {
-    box-shadow: 8px 8px 0 #39794c, 0 18px 42px rgba(24, 69, 39, 0.18);
+    box-shadow: 0 8px 24px rgba(17, 24, 39, 0.07);
   }
 
   .product-hero {
@@ -2813,5 +2813,423 @@ select:focus-visible {
   .quick-grid,
   .workflow-steps {
     gap: 9px;
+  }
+}
+
+/* Final FnB An Lien visual overrides */
+:root {
+  --ink: #111827;
+  --muted: #6b7280;
+  --paper: #f0f2f5;
+  --surface: #ffffff;
+  --line: #e5e7eb;
+  --orange: #e47c16;
+  --orange-soft: #fff7ed;
+  --lime: #66c792;
+  --lime-soft: #ecfdf5;
+  --blue: #536fd4;
+  --blue-soft: #eef2ff;
+  --purple: #6d4ae6;
+  --purple-soft: #f4f1ff;
+  --radius: 16px;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--line);
+  background: rgba(249, 249, 249, 0.98);
+  box-shadow: none;
+}
+
+.demo-badge {
+  border-color: #f1d5b4;
+  background: #fffaf4;
+  color: #b96312;
+}
+
+.top-cta,
+.button--primary {
+  border-color: var(--orange);
+  background: var(--orange);
+  box-shadow: none;
+}
+
+.desktop-nav a {
+  border-radius: 16px;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.desktop-nav a:hover,
+.desktop-nav a.is-active {
+  background: rgba(229, 231, 235, 0.72);
+  color: #111827;
+  box-shadow: none;
+}
+
+.shell-main {
+  background: var(--paper);
+}
+
+.hero,
+.product-hero,
+.day-hero {
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: 0 10px 35px rgba(17, 24, 39, 0.055);
+}
+
+.owner-hero {
+  position: relative;
+  min-height: 380px;
+  padding: clamp(36px, 4.5vw, 56px);
+  border-radius: 24px;
+}
+
+.owner-hero::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44%;
+  height: 100%;
+  border-radius: 0 24px 24px 0;
+  background: #f7f5ff;
+  content: "";
+  pointer-events: none;
+}
+
+.owner-hero__intro,
+.owner-pulse {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1,
+.product-hero h1,
+.day-hero h1,
+.section-intro h2,
+.day-teaser h2,
+.day-outro h2,
+.suggestion-card h2,
+.draft-panel h2,
+.recommendation-band h2,
+.day-moment h2,
+.owner-asset__metric strong,
+.idea-today h2,
+.brand-dna-card__title h2,
+.idea-detail h2,
+.brand-status span {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-transform: none;
+}
+
+.owner-hero h1 {
+  max-width: 620px;
+  color: var(--ink);
+  font-size: clamp(42px, 5vw, 60px);
+  line-height: 1.08;
+}
+
+.owner-hero .eyebrow,
+.hero__meta,
+.hero__lead,
+.day-hero .eyebrow,
+.day-hero > p {
+  color: var(--muted);
+}
+
+.owner-hero__axes {
+  color: #4b5563;
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 600;
+}
+
+.owner-hero__axes span {
+  color: var(--orange);
+}
+
+.owner-pulse {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 26px rgba(17, 24, 39, 0.07);
+}
+
+.owner-pulse > div {
+  border-bottom-color: var(--line);
+}
+
+.owner-pulse strong {
+  color: var(--ink);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.owner-pulse small {
+  background: #f9fafb;
+}
+
+.section-intro h2,
+.day-teaser h2,
+.day-outro h2 {
+  font-size: clamp(27px, 3.2vw, 40px);
+  line-height: 1.15;
+}
+
+.attention-list,
+.customer-groups,
+.owner-asset,
+.deep-tools-grid a,
+.idea-today,
+.brand-dna-card,
+.idea-picker button,
+.idea-detail,
+.touchpoint-grid button,
+.advisor-grid button,
+.suggestion-card,
+.shift-card,
+.checklist-card,
+.offer-card,
+.loyalty-metrics,
+.recommendation-band,
+.proof-grid {
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(17, 24, 39, 0.045);
+}
+
+.attention-list,
+.customer-groups {
+  border-radius: 16px;
+}
+
+.attention-row:hover {
+  background: #f9fafb;
+}
+
+.owner-assets-grid {
+  gap: 16px;
+}
+
+.owner-asset {
+  min-height: 330px;
+  border-radius: 18px;
+}
+
+.owner-asset--people,
+.owner-asset--customers,
+.owner-asset--brand {
+  background: #ffffff;
+}
+
+.owner-asset--people .owner-asset__metric strong { color: var(--blue); }
+.owner-asset--customers .owner-asset__metric strong { color: var(--purple); }
+.owner-asset--brand .owner-asset__metric strong { color: var(--orange); }
+
+.owner-asset__metric strong {
+  font-size: 48px;
+}
+
+.idea-today {
+  border-radius: 18px;
+  background: #f7f5ff;
+}
+
+.idea-today h2 {
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.12;
+}
+
+.deep-tools-grid a {
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+.deep-tools-grid a:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+  transform: none;
+}
+
+.day-teaser,
+.day-outro {
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--ink);
+  box-shadow: 0 8px 28px rgba(17, 24, 39, 0.045);
+}
+
+.day-teaser .eyebrow,
+.day-outro .eyebrow {
+  color: var(--orange);
+}
+
+.day-teaser .button--light,
+.day-outro .button--light {
+  border-color: var(--orange);
+  background: var(--orange-soft);
+  color: #a9570d;
+}
+
+.product-page--marketing .product-hero,
+.marketing-command-hero,
+.day-hero {
+  background: #f7f5ff;
+}
+
+.product-page--loyalty .product-hero {
+  background: #f8f6ff;
+}
+
+.product-page--ops .product-hero {
+  background: #f5f7ff;
+}
+
+.product-hero {
+  min-height: 320px;
+  border-radius: 20px;
+}
+
+.product-hero h1,
+.marketing-command-hero h1 {
+  max-width: 720px;
+  font-size: clamp(38px, 4.5vw, 56px);
+  line-height: 1.1;
+}
+
+.mini-status {
+  border: 1px solid var(--line);
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.06);
+}
+
+.brand-status span {
+  font-size: 30px;
+}
+
+.brand-dna-card {
+  border-radius: 18px;
+  color: var(--ink);
+}
+
+.brand-dna-card .eyebrow { color: var(--muted); }
+.brand-dna-card .live-dot { color: #16834a; }
+
+.brand-dna-card__title h2 {
+  font-size: 38px;
+}
+
+.brand-dna-card dl {
+  background: var(--line);
+}
+
+.brand-dna-card dl div {
+  background: #f9fafb;
+}
+
+.brand-dna-card dt { color: var(--muted); }
+.brand-dna-card .text-link { border-color: var(--line); color: var(--ink); }
+
+.idea-picker button.is-selected {
+  border-color: #cfc6fa;
+  background: #f4f1ff;
+  box-shadow: inset 3px 0 0 var(--purple);
+}
+
+.idea-detail {
+  background: #ffffff;
+}
+
+.idea-detail h2 {
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.12;
+}
+
+.idea-detail > p {
+  color: var(--muted);
+}
+
+.touchpoint-grid button,
+.advisor-grid button,
+.advisor-grid button:nth-child(n) {
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.touchpoint-grid button:hover,
+.advisor-grid button:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+}
+
+.recommendation-band {
+  background: #f4f1ff;
+  color: var(--ink);
+}
+
+.recommendation-band .eyebrow {
+  color: var(--purple);
+}
+
+.offer-card {
+  background: #fffaf4;
+}
+
+.proof-grid {
+  background: #ffffff;
+}
+
+.mobile-nav {
+  border: 1px solid var(--line);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(17, 24, 39, 0.12);
+}
+
+.mobile-nav a.is-active {
+  background: rgba(229, 231, 235, 0.8);
+  color: var(--ink);
+}
+
+@media (max-width: 860px) {
+  .owner-hero::before {
+    width: 100%;
+    height: 46%;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .owner-pulse {
+    box-shadow: 0 8px 24px rgba(17, 24, 39, 0.07);
+  }
+}
+
+@media (max-width: 580px) {
+  .owner-hero h1,
+  .hero h1,
+  .product-hero h1,
+  .day-hero h1 {
+    font-size: 38px;
+    line-height: 1.12;
+  }
+
+  .owner-pulse {
+    box-shadow: 0 8px 24px rgba(17, 24, 39, 0.07);
+  }
+
+  .owner-asset__metric strong {
+    font-size: 42px;
+  }
+
+  .idea-today h2 {
+    font-size: 30px;
   }
 }
