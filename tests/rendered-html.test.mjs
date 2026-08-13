@@ -17,9 +17,10 @@ test("server-renders the ANLIEN public showroom", async () => {
   const response = await render("/");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Quán hôm nay ra sao\?/);
+  assert.match(html, /Nắm quán\. Chốt việc\./);
   assert.match(html, /FnB Ăn Liền \(Demo quán\)/);
-  assert.match(html, /Brand DNA/);
+  assert.match(html, /Cần bạn xử lý/);
+  assert.match(html, /Phân công việc/);
   assert.match(html, /ANLIEN Marketing/);
   assert.match(html, /ANLIEN Loyalty/);
   assert.match(html, /ANLIEN Ops/);

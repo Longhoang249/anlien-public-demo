@@ -125,6 +125,48 @@ export interface OpsDemo {
   };
 }
 
+export interface OwnerAssignment {
+  id: string;
+  task: string;
+  assignee: string;
+  due: string;
+  status: "doing" | "review" | "late";
+}
+
+export interface OwnerDashboardDemo {
+  operations: {
+    staffCheckedIn: number;
+    staffScheduled: number;
+    tasksCompleted: number;
+    tasksTotal: number;
+    overdue: number;
+    pendingReview: number;
+    openIssues: number;
+    cashDifference: string;
+  };
+  customers: {
+    total: number;
+    newToday: number;
+    returningToday: number;
+    inactive: number;
+    vouchersToday: number;
+    gamePlaysToday: number;
+    feedbackPending: number;
+  };
+  brand: {
+    readiness: number;
+    ideasToday: number;
+    touchpointsPending: number;
+    upcomingMoment: string;
+  };
+  branches: Array<{
+    name: string;
+    completion: number;
+    status: string;
+  }>;
+  assignments: OwnerAssignment[];
+}
+
 export interface DayMoment {
   time: string;
   label: string;
@@ -143,5 +185,6 @@ export interface DemoSnapshot {
   marketing: MarketingDemo;
   loyalty: LoyaltyDemo;
   ops: OpsDemo;
+  owner: OwnerDashboardDemo;
   timeline: DayMoment[];
 }

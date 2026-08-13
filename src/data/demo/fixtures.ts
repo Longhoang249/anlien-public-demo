@@ -5,6 +5,7 @@ import type {
   LoyaltyDemo,
   MarketingDemo,
   OpsDemo,
+  OwnerDashboardDemo,
   OrganizationContext,
   ProductSummary,
 } from "@/src/contracts/shell";
@@ -284,6 +285,43 @@ export const opsDemo: OpsDemo = {
       { id: "guest-area", label: "Vệ sinh khu vực khách", complete: false },
     ],
   },
+};
+
+export const ownerDashboardDemo: OwnerDashboardDemo = {
+  operations: {
+    staffCheckedIn: 8,
+    staffScheduled: 9,
+    tasksCompleted: 17,
+    tasksTotal: 20,
+    overdue: 2,
+    pendingReview: 1,
+    openIssues: 1,
+    cashDifference: "0đ",
+  },
+  customers: {
+    total: 486,
+    newToday: 6,
+    returningToday: 23,
+    inactive: 87,
+    vouchersToday: 18,
+    gamePlaysToday: 42,
+    feedbackPending: 1,
+  },
+  brand: {
+    readiness: 82,
+    ideasToday: 4,
+    touchpointsPending: 3,
+    upcomingMoment: "Cuối tuần này",
+  },
+  branches: [
+    { name: "Nguyễn Thái Học", completion: 85, status: "2 việc trễ" },
+    { name: "Trần Phú", completion: 94, status: "Đúng nhịp" },
+  ],
+  assignments: [
+    { id: "a1", task: "Vệ sinh khu vực khách", assignee: "Linh", due: "18:45", status: "doing" },
+    { id: "a2", task: "Đối soát quầy thu ngân", assignee: "Minh", due: "19:00", status: "review" },
+    { id: "a3", task: "Bổ sung nguyên liệu quầy bar", assignee: "Nam", due: "18:20", status: "late" },
+  ],
 };
 
 export const dayTimeline: DayMoment[] = [

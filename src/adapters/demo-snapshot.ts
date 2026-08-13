@@ -4,6 +4,7 @@ import {
   demoLocations,
   demoOrganization,
   dayTimeline,
+  ownerDashboardDemo,
 } from "@/src/data/demo/fixtures";
 import {
   MockLoyaltyAdapter,
@@ -30,7 +31,7 @@ export function getDemoSnapshot(): DemoSnapshot {
     marketing: marketing.getDemo(),
     loyalty: loyalty.getDemo(),
     ops: ops.getDemo(),
+    owner: ownerDashboardDemo,
     timeline: dayTimeline,
   };
 }
-
