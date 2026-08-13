@@ -3714,6 +3714,34 @@ body {
 .dashboard-head > div:first-child > p:last-child { font-size: 14px; font-weight: 550; }
 .signal-card { min-height: 390px; }
 
+.app-shell--overview .shell-main > .daily-kpis {
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.app-shell--overview .shell-main > .dashboard-grid--primary {
+  column-gap: 24px;
+  margin-top: 28px;
+}
+
+.app-shell--overview .shell-main > .dashboard-grid--signals {
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.app-shell--overview .shell-main > .assignment-panel {
+  margin-top: 28px;
+}
+
+.app-shell--overview .shell-main > .dashboard-deep-tools {
+  margin-top: 36px;
+}
+
 @media (max-width: 760px) {
   .dashboard-head { padding-top: 24px; }
+  .app-shell--overview .shell-main > .daily-kpis { gap: 14px; margin-top: 18px; }
+  .app-shell--overview .shell-main > .dashboard-grid--primary,
+  .app-shell--overview .shell-main > .dashboard-grid--signals,
+  .app-shell--overview .shell-main > .assignment-panel { gap: 18px; margin-top: 18px; }
+  .app-shell--overview .shell-main > .dashboard-deep-tools { margin-top: 26px; }
 }
