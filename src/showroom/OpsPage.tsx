@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { DemoSnapshot } from "@/src/contracts/shell";
-import { DemoBadge, ScopeBadge, SectionIntro, StatusMark } from "./ui";
+import { ScopeBadge, SectionIntro, StatusMark } from "./ui";
 
 export function OpsPage({
   snapshot,
@@ -21,10 +21,10 @@ export function OpsPage({
     <div className="product-page product-page--ops">
       <header className="product-hero">
         <div>
-          <div className="product-hero__meta"><DemoBadge /><ScopeBadge scope="location" /></div>
+          <div className="product-hero__meta"><ScopeBadge scope="location" /></div>
           <p className="eyebrow">OPS · VẬN HÀNH</p>
           <h1>Không ở quán, vẫn biết mọi việc đến đâu.</h1>
-          <p>Ca làm, check-in và checklist được kể bằng những câu hỏi rất đời thường của chủ quán.</p>
+          <p>Biết ai đang làm, việc nào đã xong và quy trình nào đang chậm.</p>
         </div>
         <div className="mini-status"><span>8/9</span><p>nhân sự đã vào ca</p></div>
       </header>
@@ -81,4 +81,3 @@ export function OpsPage({
     </div>
   );
 }
-

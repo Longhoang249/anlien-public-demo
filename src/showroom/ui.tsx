@@ -4,7 +4,7 @@ export function DemoBadge({ compact = false }: { compact?: boolean }) {
   return (
     <span className={compact ? "demo-badge demo-badge--compact" : "demo-badge"}>
       <span aria-hidden="true" className="demo-badge__dot" />
-      Dữ liệu mô phỏng
+      Demo
     </span>
   );
 }
@@ -51,4 +51,3 @@ export function StatusMark({ tone }: { tone: "warning" | "neutral" | "success" }
 export function Arrow() {
   return <span aria-hidden="true">↗</span>;
 }
-

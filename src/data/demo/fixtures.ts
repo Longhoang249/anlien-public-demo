@@ -32,35 +32,53 @@ export const demoLocations: LocationContext[] = [
 
 export const marketingSummary: ProductSummary = {
   product: "marketing",
-  status: "attention",
+  status: "healthy",
   promise: "Kéo khách",
   metrics: [
     {
-      id: "marketing-content-planned",
-      label: "nội dung đang chuẩn bị",
-      value: "3",
+      id: "marketing-brand-dna",
+      label: "Brand DNA",
+      value: "Đã chuẩn hóa",
       owner: "marketing",
-      futureSource: "Marketing content projection",
+      futureSource: "Marketing Brand DNA projection",
       scope: "business",
       status: "demo",
     },
     {
-      id: "marketing-content-review",
-      label: "nội dung chờ duyệt",
-      value: "1",
+      id: "marketing-ideas-today",
+      label: "ý tưởng phù hợp hôm nay",
+      value: "4",
       owner: "marketing",
-      futureSource: "Marketing review projection",
+      futureSource: "Marketing idea projection",
+      scope: "business",
+      status: "demo",
+    },
+    {
+      id: "marketing-touchpoints",
+      label: "điểm chạm cần hoàn thiện",
+      value: "3",
+      owner: "marketing",
+      futureSource: "Marketing touchpoint projection",
       scope: "business",
       status: "demo",
     },
   ],
   alerts: [
     {
-      id: "marketing-review-alert",
+      id: "marketing-dna-ready",
+      product: "marketing",
+      tone: "success",
+      label: "Brand DNA đã sẵn sàng",
+      detail: "ANLIEN đã nhớ giọng và khách chính của quán.",
+      scope: "business",
+      status: "demo",
+    },
+    {
+      id: "marketing-ideas-ready",
       product: "marketing",
       tone: "neutral",
-      label: "3 nội dung đang chờ bạn xem",
-      detail: "Bản nháp đầu tiên đã sẵn sàng.",
+      label: "Có 4 ý tưởng phù hợp hôm nay",
+      detail: "Ý tưởng dựa trên DNA và bối cảnh của quán.",
       scope: "business",
       status: "demo",
     },
@@ -174,13 +192,52 @@ export const marketingDemo: MarketingDemo = {
     "Nhóm đồ uống mát hợp với khung giờ chiều",
     "Có thể tận dụng visual sản phẩm đã có",
   ],
-  draft: {
-    eyebrow: "Bản nháp · 15:00 hôm nay",
-    title: "Chiều nay, mình mời bạn một khoảng nghỉ thật mát.",
-    body: "Trà đào cam sả mát dịu, thơm vừa đủ — một ly cho buổi chiều nhẹ tênh.",
-    caption: "Ghé FnB Ăn Liền, chọn góc quen và để tụi mình làm mát ngày của bạn nhé.",
+  brandDna: {
+    status: "Đã chuẩn hóa",
+    voice: ["Trẻ", "Gần gũi", "Tinh nghịch"],
+    audience: "18 đến 30 tuổi",
+    promise: "Một khoảng nghỉ nhanh, vui và vừa túi tiền.",
+    touchpointsPending: 3,
   },
-  workflow: ["Nghĩ ý tưởng", "Tạo nội dung", "Chủ quán duyệt", "Lên lịch"],
+  ideas: [
+    {
+      id: "cool-drinks",
+      title: "Đồ uống mát cho chiều nóng",
+      angle: "Một khoảng nghỉ mát và nhẹ giữa ngày.",
+      channel: "Facebook · Instagram",
+    },
+    {
+      id: "behind-counter",
+      title: "Một phút sau quầy",
+      angle: "Kể câu chuyện người thật và nhịp làm việc của quán.",
+      channel: "TikTok · Reels",
+    },
+    {
+      id: "regular-corner",
+      title: "Góc quen của khách quen",
+      angle: "Biến trải nghiệm tại quán thành một điểm nhận diện.",
+      channel: "Facebook · Tại quán",
+    },
+    {
+      id: "combo-under-59",
+      title: "Combo vui dưới 59K",
+      angle: "Nói rõ giá trị nhưng vẫn giữ đúng giọng thương hiệu.",
+      channel: "Menu · Social",
+    },
+  ],
+  touchpoints: [
+    { label: "Menu tại quầy", status: "ready" },
+    { label: "Trang Facebook", status: "ready" },
+    { label: "Mẫu phản hồi đánh giá", status: "pending" },
+    { label: "Bao bì mang đi", status: "pending" },
+    { label: "Kịch bản chào khách", status: "pending" },
+  ],
+  advisors: [
+    { label: "Cố vấn thương hiệu", description: "Kiểm tra một ý tưởng có đúng DNA quán không." },
+    { label: "Cố vấn marketing", description: "Chọn chủ đề, điểm chạm và cách tiếp cận phù hợp." },
+    { label: "Trợ lý nội dung", description: "Biến ý tưởng đã chọn thành nội dung đúng giọng quán." },
+    { label: "Trợ lý hình ảnh", description: "Gợi ý hướng hình ảnh nhất quán với thương hiệu." },
+  ],
 };
 
 export const loyaltyDemo: LoyaltyDemo = {
@@ -241,8 +298,8 @@ export const dayTimeline: DayMoment[] = [
     time: "10:00",
     label: "Marketing",
     product: "marketing",
-    message: "ANLIEN chuẩn bị bài đăng hôm nay.",
-    action: "Chủ quán xem và duyệt.",
+    message: "Có 4 ý tưởng phù hợp với DNA quán.",
+    action: "Chủ quán chọn việc đáng làm hôm nay.",
   },
   {
     time: "14:00",
@@ -266,4 +323,3 @@ export const dayTimeline: DayMoment[] = [
     action: "Một lượt xem là nắm được cả ngày.",
   },
 ];
-

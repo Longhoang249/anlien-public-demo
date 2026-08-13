@@ -7,9 +7,9 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${protocol}://${host}`;
-  const title = "ANLIEN — Mở ra là biết quán hôm nay thế nào";
+  const title = "ANLIEN · Nắm quán mỗi ngày";
   const description =
-    "Interactive product showroom giúp chủ quán F&B thử cách ANLIEN kéo khách, giữ khách và vận hành quán.";
+    "Một nơi để chủ quán nắm nhân sự, khách hàng và DNA thương hiệu mỗi ngày.";
 
   return {
     metadataBase: new URL(origin),
@@ -20,13 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       type: "website",
       locale: "vi_VN",
-      images: [{ url: new URL("/og-theme.png", origin).toString(), width: 1731, height: 909, alt: title }],
+      images: [{ url: new URL("/og-v2.png", origin).toString(), width: 1732, height: 908, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [new URL("/og-theme.png", origin).toString()],
+      images: [new URL("/og-v2.png", origin).toString()],
     },
   };
 }

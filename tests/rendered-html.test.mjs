@@ -17,18 +17,19 @@ test("server-renders the ANLIEN public showroom", async () => {
   const response = await render("/");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /Hôm nay quán có gì cần chú ý\?/);
+  assert.match(html, /Quán hôm nay ra sao\?/);
   assert.match(html, /FnB Ăn Liền \(Demo quán\)/);
-  assert.match(html, /Dữ liệu mô phỏng/);
-  assert.match(html, /Marketing/);
-  assert.match(html, /Loyalty/);
-  assert.match(html, /Ops/);
+  assert.match(html, /Brand DNA/);
+  assert.match(html, /ANLIEN Marketing/);
+  assert.match(html, /ANLIEN Loyalty/);
+  assert.match(html, /ANLIEN Ops/);
+  assert.doesNotMatch(html, /PUBLIC PRODUCT SHOWROOM|Không cần đăng nhập|Bắt đầu ↓/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
 test("server-renders every product demo route", async () => {
   const routes = [
-    ["/demo/marketing", /Hôm nay page nên đăng gì\?/],
+    ["/demo/marketing", /Quán nên nói gì hôm nay\?/],
     ["/demo/loyalty", /Khách của quán đang thế nào\?/],
     ["/demo/ops", /Không ở quán, vẫn biết mọi việc đến đâu\./],
     ["/demo/day", /Một ngày với ANLIEN/i],
@@ -40,4 +41,3 @@ test("server-renders every product demo route", async () => {
     assert.match(await response.text(), expected, pathname);
   }
 });
-

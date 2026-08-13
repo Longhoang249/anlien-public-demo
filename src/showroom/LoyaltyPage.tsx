@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { DemoSnapshot } from "@/src/contracts/shell";
-import { Arrow, DemoBadge, ScopeBadge, SectionIntro } from "./ui";
+import { Arrow, ScopeBadge, SectionIntro } from "./ui";
 
 export function LoyaltyPage({
   snapshot,
@@ -19,10 +19,10 @@ export function LoyaltyPage({
     <div className="product-page product-page--loyalty">
       <header className="product-hero">
         <div>
-          <div className="product-hero__meta"><DemoBadge /><ScopeBadge scope="business" /></div>
+          <div className="product-hero__meta"><ScopeBadge scope="business" /></div>
           <p className="eyebrow">LOYALTY · GIỮ KHÁCH</p>
           <h1>Khách của quán đang thế nào?</h1>
-          <p>Nhìn ra nhóm khách cần được nhớ tới — không cần học CRM hay đọc một bảng dữ liệu dày đặc.</p>
+          <p>Biết ai đang gắn bó, ai lâu chưa quay lại và nhóm nào cần được chăm sóc.</p>
         </div>
         <div className="mini-status"><span>486</span><p>khách thành viên</p></div>
       </header>
@@ -73,10 +73,9 @@ export function LoyaltyPage({
           <button className="button button--dark" onClick={() => setReady(true)}>
             {ready ? "Ưu đãi đã sẵn sàng ✓" : <>Chuẩn bị ưu đãi <Arrow /></>}
           </button>
-          <small>Demo — không gửi đến khách thật</small>
+          <small>Demo · Không gửi đến khách thật</small>
         </aside>
       </section>
     </div>
   );
 }
-

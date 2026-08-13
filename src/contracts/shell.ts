@@ -56,13 +56,27 @@ export interface ProductSummary {
 export interface MarketingDemo {
   suggestion: string;
   reasons: string[];
-  draft: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    caption: string;
+  brandDna: {
+    status: string;
+    voice: string[];
+    audience: string;
+    promise: string;
+    touchpointsPending: number;
   };
-  workflow: string[];
+  ideas: Array<{
+    id: string;
+    title: string;
+    angle: string;
+    channel: string;
+  }>;
+  touchpoints: Array<{
+    label: string;
+    status: "ready" | "pending";
+  }>;
+  advisors: Array<{
+    label: string;
+    description: string;
+  }>;
 }
 
 export interface CustomerGroup {
@@ -131,4 +145,3 @@ export interface DemoSnapshot {
   ops: OpsDemo;
   timeline: DayMoment[];
 }
-

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { DemoSnapshot } from "@/src/contracts/shell";
-import { DemoBadge, SectionIntro } from "./ui";
+import { SectionIntro } from "./ui";
 
 const productLabel = {
   overview: "Tổng quan",
@@ -13,7 +13,7 @@ export function DayPage({ snapshot }: { snapshot: DemoSnapshot }) {
   return (
     <div className="day-page">
       <header className="day-hero">
-        <div><DemoBadge /><p className="eyebrow">MỘT NGÀY VỚI ANLIEN</p><h1>Bạn vận hành bằng ngoại lệ.<br />ANLIEN theo dõi phần còn lại.</h1></div>
+        <div><p className="eyebrow">MỘT NGÀY VỚI ANLIEN</p><h1>Nắm việc cần làm.<br />Phần còn lại vẫn chạy.</h1></div>
         <p>Từ lúc mở cửa đến cuối ngày, mỗi thông báo đều dẫn tới một hành động cụ thể.</p>
       </header>
       <section className="timeline-section">
@@ -41,4 +41,3 @@ export function DayPage({ snapshot }: { snapshot: DemoSnapshot }) {
     </div>
   );
 }
-

@@ -2164,6 +2164,628 @@ select:focus-visible {
   }
 }
 
+/* V2: Owner Command Center */
+.topbar {
+  grid-template-columns: 210px minmax(230px, auto) 1fr auto;
+}
+
+.wordmark {
+  padding-inline: 20px;
+}
+
+.topbar__context {
+  padding-inline: 14px;
+}
+
+.location-context {
+  display: none;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: var(--topbar);
+  padding-inline: 12px;
+}
+
+.desktop-nav a {
+  padding: 9px 11px;
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.desktop-nav a:hover,
+.desktop-nav a.is-active {
+  background: #eceef2;
+  color: var(--ink);
+}
+
+.desktop-nav a.is-active {
+  box-shadow: inset 0 -2px 0 var(--orange);
+}
+
+.shell-main {
+  margin-left: 0;
+}
+
+.owner-hero {
+  grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+  min-height: 440px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: clamp(42px, 5vw, 64px);
+}
+
+.owner-hero__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.owner-hero h1 {
+  max-width: 640px;
+  font-size: clamp(52px, 6vw, 78px);
+  line-height: 0.98;
+}
+
+.owner-hero__axes {
+  margin: 24px 0 0;
+  color: white;
+  font-size: clamp(17px, 1.7vw, 22px);
+  font-weight: 700;
+}
+
+.owner-hero__axes span {
+  padding-inline: 7px;
+  color: #d7ec8b;
+}
+
+.owner-pulse {
+  display: grid;
+  overflow: hidden;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 12px 12px 0 #39794c;
+}
+
+.owner-pulse > div {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.owner-pulse strong {
+  color: var(--ink);
+  font-size: 34px;
+  letter-spacing: -0.06em;
+}
+
+.owner-pulse span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.owner-pulse small {
+  padding: 13px 24px;
+  background: #f6f7f8;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.attention-section,
+.owner-assets-section,
+.deep-tools-section {
+  padding: 58px 0;
+}
+
+.owner-attention-list .attention-row {
+  grid-template-columns: 34px 1fr auto 18px;
+  min-height: 66px;
+}
+
+.attention-row__view {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.owner-assets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.owner-asset {
+  display: flex;
+  min-height: 360px;
+  flex-direction: column;
+  padding: 28px;
+  border-radius: 24px;
+  box-shadow: 0 18px 50px rgba(40, 45, 56, 0.08);
+}
+
+.owner-asset--people { background: var(--blue-soft); }
+.owner-asset--customers { background: var(--purple-soft); }
+.owner-asset--brand { background: var(--orange-soft); }
+
+.owner-asset__metric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 16px;
+}
+
+.owner-asset__metric strong {
+  font-family: "Anton", Impact, sans-serif;
+  font-size: 64px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.owner-asset__metric span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.owner-asset ul {
+  display: grid;
+  gap: 10px;
+  margin: 28px 0;
+  padding: 20px 0 0;
+  border-top: 1px solid rgba(36, 33, 36, 0.12);
+  list-style: none;
+}
+
+.owner-asset li {
+  font-size: 12px;
+}
+
+.owner-asset .text-link {
+  margin-top: auto;
+}
+
+.idea-today {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin-block: 22px;
+  padding: 42px 48px;
+  border-radius: 26px;
+  background: #dff1a3;
+  box-shadow: 0 18px 50px rgba(48, 70, 38, 0.09);
+}
+
+.idea-today h2 {
+  max-width: 720px;
+  margin: 0;
+  font-family: "Anton", Impact, sans-serif;
+  font-size: clamp(34px, 4.4vw, 58px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+.idea-today > div > p:last-child {
+  max-width: 680px;
+  margin: 15px 0 0;
+  color: #4b5741;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.deep-tools-section {
+  width: min(1180px, calc(100% - 64px));
+  margin-inline: auto;
+  border-top: 1px solid var(--line);
+}
+
+.deep-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.deep-tools-grid a {
+  display: grid;
+  min-height: 220px;
+  grid-template-columns: 1fr auto;
+  align-content: start;
+  gap: 10px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 12px 34px rgba(40, 45, 56, 0.05);
+}
+
+.deep-tools-grid a:hover {
+  border-color: #d7b892;
+  transform: translateY(-2px);
+}
+
+.deep-tools-grid a > span:first-child {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.deep-tools-grid h3 {
+  grid-column: 1 / -1;
+  margin: 20px 0 0;
+  font-size: 20px;
+}
+
+.deep-tools-grid p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.compact-day-teaser {
+  margin-top: 18px;
+}
+
+.marketing-command-hero {
+  grid-template-columns: minmax(0, 1fr) 150px;
+  min-height: 360px;
+}
+
+.marketing-command-hero h1 {
+  max-width: 700px;
+  font-size: clamp(48px, 5.2vw, 72px);
+}
+
+.brand-status span {
+  font-family: "Anton", Impact, sans-serif;
+  font-size: 38px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.brand-dna-card {
+  display: grid;
+  grid-template-columns: minmax(210px, 0.7fr) minmax(0, 1.7fr);
+  gap: 32px 46px;
+  margin: 24px 0 60px;
+  padding: 34px;
+  border-radius: 24px;
+  background: #1f1f21;
+  color: white;
+  box-shadow: 0 22px 58px rgba(31, 31, 33, 0.18);
+}
+
+.brand-dna-card__title h2 {
+  margin: 8px 0 18px;
+  font-family: "Anton", Impact, sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.brand-dna-card .eyebrow { color: #aeb2bb; }
+.brand-dna-card .live-dot { color: #d7ec8b; }
+
+.brand-dna-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #3e3e41;
+}
+
+.brand-dna-card dl div {
+  display: flex;
+  min-height: 92px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18px;
+  background: #2b2b2e;
+}
+
+.brand-dna-card dt {
+  color: #aeb2bb;
+  font-size: 10px;
+}
+
+.brand-dna-card dd {
+  margin: 7px 0 0;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.brand-dna-card .text-link {
+  grid-column: 1 / -1;
+  border-color: #4b4b50;
+  color: white;
+}
+
+.marketing-ideas-section,
+.touchpoints-section,
+.advisor-section {
+  padding: 60px 0;
+  border-top: 1px solid var(--line);
+}
+
+.marketing-ideas-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.22fr);
+  gap: 18px;
+}
+
+.idea-picker {
+  display: grid;
+  gap: 8px;
+}
+
+.idea-picker button {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 3px 10px;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+}
+
+.idea-picker button.is-selected {
+  border-color: #d87917;
+  background: #fff4e8;
+  box-shadow: inset 3px 0 0 var(--orange);
+}
+
+.idea-picker button > span {
+  grid-row: 1 / 3;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.idea-picker strong { font-size: 13px; }
+.idea-picker small { color: var(--muted); font-size: 10px; }
+
+.idea-detail {
+  display: flex;
+  min-height: 420px;
+  flex-direction: column;
+  padding: 34px;
+  border-radius: 22px;
+  background: #fff0e3;
+}
+
+.idea-detail h2 {
+  max-width: 600px;
+  margin: 10px 0;
+  font-family: "Anton", Impact, sans-serif;
+  font-size: clamp(38px, 4vw, 54px);
+  font-weight: 400;
+  line-height: 1.03;
+  text-transform: uppercase;
+}
+
+.idea-detail > p {
+  margin: 0;
+  color: #654d39;
+  font-size: 14px;
+}
+
+.idea-detail > div {
+  margin: 34px 0 24px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(36, 33, 36, 0.13);
+}
+
+.idea-detail > div > span {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.idea-detail ul {
+  display: grid;
+  gap: 7px;
+  margin: 12px 0 0;
+  padding-left: 18px;
+  font-size: 12px;
+}
+
+.idea-detail .button { align-self: flex-start; margin-top: auto; }
+
+.touchpoint-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.touchpoint-grid button {
+  display: flex;
+  min-height: 170px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+}
+
+.touchpoint-grid button > span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  margin-bottom: 24px;
+  border-radius: 9px;
+  background: var(--orange-soft);
+  color: #a9530e;
+  font-weight: 800;
+}
+
+.touchpoint-grid button.is-ready > span {
+  background: var(--lime-soft);
+  color: #287b3f;
+}
+
+.touchpoint-grid strong { font-size: 12px; }
+.touchpoint-grid small { margin-top: 5px; color: var(--muted); font-size: 10px; }
+
+.advisor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.advisor-grid button {
+  display: grid;
+  min-height: 210px;
+  grid-template-columns: 1fr auto;
+  align-content: start;
+  gap: 12px;
+  padding: 24px;
+  border: 0;
+  border-radius: 20px;
+  background: #efeaff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.advisor-grid button:nth-child(2) { background: var(--blue-soft); }
+.advisor-grid button:nth-child(3) { background: var(--orange-soft); }
+.advisor-grid button:nth-child(4) { background: var(--lime-soft); }
+.advisor-grid strong { font-size: 14px; }
+.advisor-grid p { grid-column: 1 / -1; margin: 18px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+@media (max-width: 1120px) {
+  .topbar {
+    grid-template-columns: 190px minmax(205px, auto) 1fr auto;
+  }
+
+  .business-switcher strong { max-width: 150px; }
+  .desktop-nav a { padding-inline: 8px; font-size: 10px; }
+  .topbar__actions .top-cta { display: none; }
+  .touchpoint-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .topbar__context,
+  .desktop-nav {
+    display: none;
+  }
+
+  .topbar__actions {
+    display: flex;
+    padding-right: 14px;
+  }
+
+  .topbar__actions .top-cta {
+    display: none;
+  }
+
+  .topbar__actions .demo-badge {
+    display: inline-flex;
+  }
+
+  .owner-hero,
+  .marketing-command-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .owner-assets-grid,
+  .deep-tools-grid,
+  .advisor-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .owner-pulse {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .owner-pulse > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+  }
+
+  .owner-pulse small { grid-column: 1 / -1; }
+  .brand-dna-card { grid-template-columns: 1fr; }
+  .marketing-ideas-layout { grid-template-columns: 1fr; }
+  .touchpoint-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 580px) {
+  .owner-hero {
+    padding: 30px 22px 34px;
+  }
+
+  .owner-hero h1 {
+    font-size: 47px;
+  }
+
+  .owner-hero__axes {
+    font-size: 14px;
+  }
+
+  .owner-pulse {
+    grid-template-columns: 1fr;
+    box-shadow: 7px 7px 0 #39794c;
+  }
+
+  .owner-pulse > div {
+    grid-template-columns: 80px 1fr;
+    padding: 15px 18px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .owner-pulse strong { font-size: 28px; }
+  .owner-pulse small { padding-inline: 18px; }
+  .owner-attention-list .attention-row { grid-template-columns: 30px 1fr 16px; padding-inline: 15px; }
+  .attention-row__view { display: none; }
+  .owner-assets-grid,
+  .deep-tools-grid,
+  .advisor-grid,
+  .touchpoint-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .owner-asset { min-height: 300px; padding: 23px; }
+  .owner-asset__metric strong { font-size: 52px; }
+  .idea-today { align-items: flex-start; flex-direction: column; padding: 30px 22px; }
+  .idea-today h2 { font-size: 38px; }
+  .deep-tools-section { width: min(100% - 28px, 1180px); }
+  .marketing-command-hero { min-height: 0; }
+  .brand-dna-card { margin-bottom: 38px; padding: 24px; }
+  .brand-dna-card dl { grid-template-columns: 1fr; }
+  .idea-detail { min-height: 390px; padding: 24px; }
+  .touchpoint-grid button { min-height: 135px; }
+}
+
 @media (max-width: 580px) {
   .hero {
     min-height: 0;

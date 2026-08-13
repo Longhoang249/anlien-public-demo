@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { DemoSnapshot } from "@/src/contracts/shell";
-import { DemoBadge, ScopeBadge, SectionIntro } from "./ui";
+import { Arrow, ScopeBadge, SectionIntro } from "./ui";
 
 export function MarketingPage({
   snapshot,
@@ -11,79 +11,76 @@ export function MarketingPage({
   snapshot: DemoSnapshot;
   onAction: (label: string) => void;
 }) {
-  const [approved, setApproved] = useState(false);
-  const [variant, setVariant] = useState(0);
-  const draft = snapshot.marketing.draft;
-  const title = variant
-    ? "Một ly mát, một khoảng nghỉ vừa đủ cho chiều nay."
-    : draft.title;
+  const [selectedIdea, setSelectedIdea] = useState(snapshot.marketing.ideas[0].id);
+  const idea = snapshot.marketing.ideas.find((item) => item.id === selectedIdea) ?? snapshot.marketing.ideas[0];
+  const dna = snapshot.marketing.brandDna;
 
   return (
-    <div className="product-page product-page--marketing">
-      <header className="product-hero">
+    <div className="product-page product-page--marketing marketing-v2">
+      <header className="product-hero marketing-command-hero">
         <div>
-          <div className="product-hero__meta"><DemoBadge /><ScopeBadge scope="business" /></div>
-          <p className="eyebrow">MARKETING · KÉO KHÁCH</p>
-          <h1>Hôm nay page nên đăng gì?</h1>
-          <p>ANLIEN đi cùng bạn từ lúc nghĩ ý tưởng đến khi bài được duyệt và sẵn sàng lên lịch.</p>
+          <div className="product-hero__meta"><ScopeBadge scope="business" /></div>
+          <p className="eyebrow">THƯƠNG HIỆU · Ý TƯỞNG · CỐ VẤN</p>
+          <h1>Quán nên nói gì hôm nay?</h1>
+          <p>ANLIEN nhớ quán là ai, đang bán gì và muốn được khách nhớ đến như thế nào.</p>
         </div>
-        <div className="mini-status"><span>3</span><p>nội dung đang chuẩn bị</p></div>
+        <div className="mini-status brand-status"><span>DNA</span><p>{dna.status}</p></div>
       </header>
 
-      <section className="suggestion-card">
-        <div className="suggestion-card__label">GỢI Ý HÔM NAY</div>
-        <div className="suggestion-card__content">
-          <h2>{snapshot.marketing.suggestion}</h2>
-          <div>
-            <p className="eyebrow">VÌ SAO ANLIEN GỢI Ý?</p>
-            <ul>{snapshot.marketing.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>
+      <section className="brand-dna-card">
+        <div className="brand-dna-card__title">
+          <p className="eyebrow">TÀI SẢN THƯƠNG HIỆU</p>
+          <h2>Brand DNA</h2>
+          <span className="live-dot">{dna.status}</span>
+        </div>
+        <dl>
+          <div><dt>Giọng thương hiệu</dt><dd>{dna.voice.join(" · ")}</dd></div>
+          <div><dt>Khách chính</dt><dd>{dna.audience}</dd></div>
+          <div><dt>Lời hứa</dt><dd>{dna.promise}</dd></div>
+          <div><dt>Cần bổ sung</dt><dd>{dna.touchpointsPending} điểm chạm</dd></div>
+        </dl>
+        <button className="text-link text-link--button" onClick={() => onAction("Xem DNA thương hiệu")}>Xem DNA thương hiệu <Arrow /></button>
+      </section>
+
+      <section className="marketing-ideas-section">
+        <SectionIntro eyebrow="KHO Ý TƯỞNG" title="Có 4 ý tưởng đáng làm hôm nay" />
+        <div className="marketing-ideas-layout">
+          <div className="idea-picker">
+            {snapshot.marketing.ideas.map((item, index) => (
+              <button key={item.id} className={selectedIdea === item.id ? "is-selected" : ""} onClick={() => setSelectedIdea(item.id)}>
+                <span>0{index + 1}</span><strong>{item.title}</strong><small>{item.channel}</small>
+              </button>
+            ))}
           </div>
+          <article className="idea-detail">
+            <p className="eyebrow">GỢI Ý ĐANG CHỌN</p>
+            <h2>{idea.title}</h2>
+            <p>{idea.angle}</p>
+            <div><span>Vì sao phù hợp</span><ul>{snapshot.marketing.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></div>
+            <button className="button button--dark" onClick={() => onAction(`Phát triển ý tưởng: ${idea.title}`)}>Phát triển ý tưởng <Arrow /></button>
+          </article>
         </div>
       </section>
 
-      <section className="creative-workspace">
-        <div className="post-preview">
-          <div className="post-preview__visual" aria-label="Minh họa thiết kế bài đăng đồ uống mát">
-            <span className="poster-kicker">CHIỀU MÁT</span>
-            <div className="drink-illustration"><span /><i /></div>
-            <strong>TRÀ ĐÀO<br />CAM SẢ</strong>
-            <small>FnB Ăn Liền · Demo</small>
-          </div>
-          <div className="post-preview__caption">
-            <span>{draft.eyebrow}</span>
-            <p>{draft.caption}</p>
-          </div>
-        </div>
-
-        <div className="draft-panel">
-          <div className="draft-panel__head">
-            <div><span className="draft-status">{approved ? "ĐÃ DUYỆT" : "BẢN NHÁP"}</span><p>Facebook · 15:00 hôm nay</p></div>
-            <span className="demo-label">Demo</span>
-          </div>
-          <h2>{title}</h2>
-          <p>{draft.body}</p>
-          <div className="draft-actions">
-            <button onClick={() => onAction("Chỉnh sửa bản nháp")}>Chỉnh sửa</button>
-            <button onClick={() => setVariant((value) => (value ? 0 : 1))}>Tạo lại</button>
-            <button className={approved ? "is-approved" : ""} onClick={() => setApproved(true)}>
-              {approved ? "Đã duyệt ✓" : "Duyệt"}
+      <section className="touchpoints-section">
+        <SectionIntro eyebrow="ĐIỂM CHẠM THƯƠNG HIỆU" title="Mỗi nơi khách gặp quán đều nên cùng một DNA" />
+        <div className="touchpoint-grid">
+          {snapshot.marketing.touchpoints.map((item) => (
+            <button key={item.label} onClick={() => onAction(item.label)} className={item.status === "ready" ? "is-ready" : "is-pending"}>
+              <span>{item.status === "ready" ? "✓" : "+"}</span><strong>{item.label}</strong><small>{item.status === "ready" ? "Đã có DNA" : "Cần hoàn thiện"}</small>
             </button>
-            <button className="button--dark" onClick={() => onAction("Lên lịch bài đăng")}>Lên lịch</button>
-          </div>
+          ))}
         </div>
       </section>
 
-      <section className="workflow-section">
-        <SectionIntro eyebrow="WORKFLOW MẪU" title="Từ một ý nghĩ đến bài đăng sẵn sàng" />
-        <ol className="workflow-steps">
-          {snapshot.marketing.workflow.map((step, index) => (
-            <li key={step} className={approved || index < 2 ? "is-complete" : ""}>
-              <span>{index + 1}</span><strong>{step}</strong>
-            </li>
+      <section className="advisor-section">
+        <SectionIntro eyebrow="TRỢ LÝ XOAY QUANH QUÁN" title="Hỏi đúng người cho từng việc" />
+        <div className="advisor-grid">
+          {snapshot.marketing.advisors.map((advisor) => (
+            <button key={advisor.label} onClick={() => onAction(advisor.label)}><strong>{advisor.label}</strong><p>{advisor.description}</p><Arrow /></button>
           ))}
-        </ol>
+        </div>
       </section>
     </div>
   );
 }
-
