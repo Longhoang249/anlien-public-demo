@@ -22,7 +22,7 @@ export function OverviewPage({ snapshot }: { snapshot: DemoSnapshot }) {
   const [brandReadiness, setBrandReadiness] = useState(Number.parseInt(metrics.brandReadiness.value, 10));
   const [offerReady, setOfferReady] = useState(false);
   const [notice, setNotice] = useState("");
-  const [location, setLocation] = useState("Tất cả cơ sở");
+  const [locationId, setLocationId] = useState("all");
 
   const priorities = useMemo(
     () => data.priorities.filter((item) => !resolved.includes(item.id)),
@@ -58,12 +58,6 @@ export function OverviewPage({ snapshot }: { snapshot: DemoSnapshot }) {
     toast("DNA thương hiệu đã được cập nhật");
   };
 
-  const saveFeedback = () => {
-    setResolved((current) => [...current, "feedback"]);
-    setAction(null);
-    toast("Đã lưu câu trả lời mẫu");
-  };
-
   return (
     <>
       <section className="dashboard-head" id="today">
@@ -73,7 +67,7 @@ export function OverviewPage({ snapshot }: { snapshot: DemoSnapshot }) {
           <p>Việc cần biết. Việc cần làm.</p>
         </div>
         <div className="dashboard-head__tools">
-          <label>Phạm vi<select value={location} onChange={(event) => setLocation(event.target.value)}><option>Tất cả cơ sở</option><option>Nguyễn Thái Học</option><option>Trần Phú</option></select></label>
+          <label>Phạm vi<select value={locationId} onChange={(event) => setLocationId(event.target.value)}><option value="all">Tất cả cơ sở</option>{snapshot.locations.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select></label>
           <span>{snapshot.generatedAtLabel}</span>
         </div>
       </section>
@@ -81,7 +75,7 @@ export function OverviewPage({ snapshot }: { snapshot: DemoSnapshot }) {
       <section className="daily-kpis" aria-label="Chỉ số chính hôm nay">
         <MetricCard metric={metrics.staffCheckIn} mark="N" tone="blue" warning />
         <MetricCard metric={metrics.taskCompletion} mark="V" tone="orange" />
-        <MetricCard metric={metrics.customersToday} mark="K" tone="purple" />
+        <MetricCard metric={metrics.loyaltySignalsToday} mark="K" tone="purple" />
         <MetricCard metric={{ ...metrics.brandReadiness, value: `${brandReadiness}%` }} mark="D" tone="green" />
       </section>
 
@@ -110,22 +104,22 @@ export function OverviewPage({ snapshot }: { snapshot: DemoSnapshot }) {
       <section className="dashboard-grid dashboard-grid--signals">
         <article className="dashboard-panel signal-card signal-card--ops">
           <div className="signal-card__head"><div><p className="eyebrow">VẬN HÀNH</p><h2>Quán có chạy đúng chuẩn?</h2></div><Link href="/demo/ops">Mở Ops <Arrow /></Link></div>
-          <div className="signal-stats">{[metrics.opsOverdue, metrics.opsPendingReview, metrics.opsOpenIssues, metrics.opsCashDifference].map((metric) => <div key={metric.id}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>
+          <div className="signal-stats">{[metrics.opsOverdue, metrics.opsPendingReview].map((metric) => <div key={metric.id}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>
           <div className="branch-list">
-            {data.branches.map((branch) => <div key={branch.name}><p><strong>{branch.name}</strong><span>{branch.completion.value} · {branch.status}</span></p><i><b style={{ width: branch.completion.value }} /></i></div>)}
+            {data.branches.map((branch) => { const branchLocation = snapshot.locations.find((item) => item.id === branch.locationId); return <div key={branch.locationId}><p><strong>{branchLocation?.name ?? "Cơ sở demo"}</strong><span>{branch.completion.value} · {branch.status}</span></p><i><b style={{ width: branch.completion.value }} /></i></div>; })}
           </div>
         </article>
 
         <article className="dashboard-panel signal-card signal-card--loyalty">
-          <div className="signal-card__head"><div><p className="eyebrow">KHÁCH HÀNG</p><h2>Khách có quay lại?</h2></div><Link href="/demo/loyalty">Mở Loyalty <Arrow /></Link></div>
+          <div className="signal-card__head"><div><p className="eyebrow">KHÁCH HÀNG</p><h2>Hệ thống đang nhận biết ai?</h2></div><Link href="/demo/loyalty">Mở Loyalty <Arrow /></Link></div>
           <div className="customer-number"><strong>{metrics.customerProfiles.value}</strong><span>{metrics.customerProfiles.label}</span></div>
-          <div className="customer-pulse">{[metrics.vouchersToday, metrics.gamePlaysToday, metrics.feedbackPending].map((metric) => <span key={metric.id}><b>{metric.value}</b> {metric.label}</span>)}</div>
-          <button className="inline-action" onClick={() => setAction("customers")}>{offerReady ? "Ưu đãi mẫu đã sẵn sàng" : `Chăm lại ${metrics.inactiveCustomers.value} khách cũ`} <Arrow /></button>
+          <div className="customer-pulse">{[metrics.vouchersToday, metrics.gamePlaysToday].map((metric) => <span key={metric.id}><b>{metric.value}</b> {metric.label}</span>)}</div>
+          <button className="inline-action" onClick={() => setAction("customers")}>{offerReady ? "Ưu đãi mẫu đã sẵn sàng" : `Xem ${metrics.inactiveCustomers.value} thành viên ít hoạt động`} <Arrow /></button>
         </article>
 
         <article className="dashboard-panel signal-card signal-card--brand">
           <div className="signal-card__head"><div><p className="eyebrow">THƯƠNG HIỆU</p><h2>Hôm nay nên làm gì?</h2></div><Link href="/demo/marketing">Mở Marketing <Arrow /></Link></div>
-          <div className="brand-readiness"><div className="brand-ring" style={{ "--progress": `${brandReadiness * 3.6}deg` } as React.CSSProperties}><span>{brandReadiness}%</span></div><div><strong>DNA đã đủ để AI hiểu phần lớn quán.</strong><p>{metrics.brandReadiness.detail}.</p></div></div>
+          <div className="brand-readiness"><div className="brand-ring" style={{ "--progress": `${brandReadiness * 3.6}deg` } as React.CSSProperties}><span>{brandReadiness}%</span></div><div><strong>Điểm DNA mô phỏng cho trải nghiệm Demo.</strong><p>{metrics.brandReadiness.detail}.</p></div></div>
           <div className="today-idea"><small>GỢI Ý ĐÁNG LÀM</small><strong>Đẩy nhóm đồ uống mát vào khung giờ chiều.</strong><span>Dựa trên DNA, nhóm món và bối cảnh hôm nay.</span></div>
           <Link className="inline-action" href="/demo/marketing">Xem thêm gợi ý <Arrow /></Link>
         </article>
@@ -164,7 +158,6 @@ export function OverviewPage({ snapshot }: { snapshot: DemoSnapshot }) {
             {action === "customers" ? <CustomerForm count={metrics.inactiveCustomers.value} onSave={prepareOffer} /> : null}
             {action === "idea" ? <IdeaForm snapshot={snapshot} /> : null}
             {action === "brand" ? <BrandForm onSave={saveBrand} /> : null}
-            {action === "feedback" ? <FeedbackForm onSave={saveFeedback} /> : null}
           </aside>
         </div>
       ) : null}
@@ -181,7 +174,7 @@ function AssignForm({ onSave }: { onSave: () => void }) {
 }
 
 function CustomerForm({ count, onSave }: { count: string; onSave: () => void }) {
-  return <><p className="eyebrow">LOYALTY · GIỮ KHÁCH</p><h2 id="drawer-title">Mời khách quay lại</h2><p className="drawer-lead">Hệ thống đã tìm nhóm khách có nguy cơ rời đi.</p><div className="segment-preview"><strong>{count}</strong><span>khách không có hoạt động trong 45 ngày</span></div><div className="drawer-form"><label>Quà quay lại<select><option>Tặng 20 Xu</option><option>Voucher giảm 15%</option><option>Tặng topping</option></select></label><label>Hiệu lực<select><option>7 ngày</option><option>14 ngày</option></select></label><label>Lời nhắn<textarea defaultValue="Lâu rồi chưa gặp bạn. FnB Ăn Liền gửi tặng 20 Xu cho lần ghé tới nhé!" /></label></div><div className="demo-action-note">Đây là thao tác demo. Không có tin nhắn thật được gửi.</div><button className="button button--primary drawer-submit" onClick={onSave}>Lưu ưu đãi mẫu</button></>;
+  return <><p className="eyebrow">LOYALTY · DEMO TÁI KÍCH HOẠT</p><h2 id="drawer-title">Chuẩn bị ưu đãi mẫu</h2><p className="drawer-lead">Nhóm này được xác định theo hoạt động Loyalty quan sát được trong bản Demo.</p><div className="segment-preview"><strong>{count}</strong><span>thành viên không có hoạt động Loyalty trong 45 ngày</span></div><div className="drawer-form"><label>Ưu đãi mẫu<select><option>Tặng 20 Xu</option><option>Voucher giảm 15%</option><option>Tặng topping</option></select></label><label>Hiệu lực<select><option>7 ngày</option><option>14 ngày</option></select></label><label>Lời nhắn<textarea defaultValue="Lâu rồi chưa gặp bạn. FnB Ăn Liền gửi tặng 20 Xu cho lần ghé tới nhé!" /></label></div><div className="demo-action-note">Đây là thao tác demo. Không có tin nhắn thật được gửi.</div><button className="button button--primary drawer-submit" onClick={onSave}>Lưu ưu đãi mẫu</button></>;
 }
 
 function IdeaForm({ snapshot }: { snapshot: DemoSnapshot }) {
@@ -190,8 +183,4 @@ function IdeaForm({ snapshot }: { snapshot: DemoSnapshot }) {
 
 function BrandForm({ onSave }: { onSave: () => void }) {
   return <><p className="eyebrow">MARKETING · BỘ NHỚ QUÁN</p><h2 id="drawer-title">Cập nhật DNA</h2><p className="drawer-lead">Thông tin này giúp các trợ lý hiểu đúng quán trước khi gợi ý.</p><div className="drawer-form"><label>Món chủ lực<input defaultValue="Trà trái cây và cà phê pha máy" /></label><label>Lý do khách quay lại<input defaultValue="Nhanh, vui, vừa túi tiền" /></label><div className="drawer-form__split"><label>Giờ đông khách<input defaultValue="11:30 · 17:30" /></label><label>Chi tiêu trung bình<input defaultValue="59.000đ" /></label></div><label>Điểm chạm đang bổ sung<select><option>Bao bì mang đi</option><option>Kịch bản chào khách</option><option>Mẫu trả lời review</option></select></label></div><button className="button button--primary drawer-submit" onClick={onSave}>Lưu vào DNA mẫu</button></>;
-}
-
-function FeedbackForm({ onSave }: { onSave: () => void }) {
-  return <><p className="eyebrow">LOYALTY · PHẢN HỒI</p><h2 id="drawer-title">Trả lời khách</h2><p className="drawer-lead">Khách đánh giá 2 sao vì chờ món lâu trong giờ cao điểm.</p><div className="feedback-quote">“Đồ uống ổn nhưng mình phải chờ gần 25 phút.”</div><div className="drawer-form"><label>Câu trả lời gợi ý<textarea defaultValue="FnB Ăn Liền xin lỗi vì đã để bạn chờ lâu. Quán đã ghi nhận khung giờ này để điều chỉnh nhân sự. Mong được đón bạn ở lần ghé tới tốt hơn." /></label><label>Chuyển thành việc vận hành<select><option>Tạo việc rà soát giờ cao điểm</option><option>Chưa cần</option></select></label></div><button className="button button--primary drawer-submit" onClick={onSave}>Lưu phản hồi mẫu</button></>;
 }

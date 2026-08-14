@@ -27,7 +27,12 @@ export const demoLocations: LocationContext[] = [
   {
     id: "demo-location-01",
     businessId: demoBusiness.id,
-    name: "Cơ sở Nguyễn Thái Học",
+    name: "Nguyễn Thái Học",
+  },
+  {
+    id: "demo-location-02",
+    businessId: demoBusiness.id,
+    name: "Trần Phú",
   },
 ];
 
@@ -38,7 +43,7 @@ export const marketingSummary: ProductSummary = {
   metrics: [
     {
       id: "marketing-brand-dna",
-      label: "Brand DNA",
+      label: "Điểm DNA mẫu",
       value: "82%",
       owner: "marketing",
       futureSource: "marketing.brand_dna_summary.v1",
@@ -69,8 +74,8 @@ export const marketingSummary: ProductSummary = {
       id: "marketing-dna-ready",
       product: "marketing",
       tone: "success",
-      label: "DNA thương hiệu hoàn thiện 82%",
-      detail: "Còn 3 điểm chạm cần bổ sung.",
+      label: "Điểm DNA mô phỏng: 82%",
+      detail: "Demo score · Còn 3 điểm chạm cần bổ sung.",
       scope: "business",
       status: "demo",
     },
@@ -111,7 +116,7 @@ export const loyaltySummary: ProductSummary = {
     },
     {
       id: "loyalty-inactive",
-      label: "khách lâu chưa quay lại",
+      label: "thành viên không có hoạt động Loyalty trong 45 ngày",
       value: "87",
       owner: "loyalty",
       futureSource: "loyalty.customer_segments.v1",
@@ -124,8 +129,8 @@ export const loyaltySummary: ProductSummary = {
       id: "loyalty-inactive-alert",
       product: "loyalty",
       tone: "neutral",
-      label: "87 khách đã lâu chưa quay lại",
-      detail: "Có thể tạo một ưu đãi quay lại cho nhóm này.",
+      label: "87 thành viên không có hoạt động Loyalty trong 45 ngày",
+      detail: "Đây là nhóm tái kích hoạt mô phỏng trong Demo.",
       scope: "business",
       status: "demo",
     },
@@ -194,7 +199,7 @@ export const marketingDemo: MarketingDemo = {
   ],
   brandDna: {
     readiness: 82,
-    status: "82% hoàn thiện",
+    status: "Demo score · Cần bổ sung",
     voice: ["Trẻ", "Gần gũi", "Tinh nghịch"],
     audience: "18 đến 30 tuổi",
     visualStyle: ["Tươi", "Sạch", "Trẻ"],
@@ -244,7 +249,7 @@ export const marketingDemo: MarketingDemo = {
 
 export const loyaltyDemo: LoyaltyDemo = {
   recommendation:
-    "Tạo ưu đãi quay lại cho nhóm khách đã lâu chưa ghé quán.",
+    "Chuẩn bị ưu đãi mẫu cho nhóm không có hoạt động Loyalty trong 45 ngày.",
   offer: {
     name: "Mời bạn quay lại",
     value: "Tặng 20 Xu",
@@ -253,10 +258,10 @@ export const loyaltyDemo: LoyaltyDemo = {
   groups: [
     { id: "active", label: "Khách đang hoạt động", count: 132, note: "Có hoạt động gần đây" },
     { id: "new", label: "Khách mới", count: 41, note: "Tham gia trong 30 ngày" },
-    { id: "loyal", label: "Khách thân thiết", count: 68, note: "Quay lại thường xuyên" },
+    { id: "loyal", label: "Khách thân thiết", count: 68, note: "Nhóm giả lập theo tần suất hoạt động" },
     {
       id: "inactive",
-      label: "Khách lâu chưa quay lại",
+      label: "Không có hoạt động Loyalty trong 45 ngày",
       count: 87,
       note: "Không có hoạt động trong 45 ngày",
       highlighted: true,
@@ -291,26 +296,22 @@ export const opsDemo: OpsDemo = {
 export const ownerDashboardDemo: OwnerDashboardDemo = {
   metrics: {
     staffCheckIn: { id: "owner-staff-checkin", label: "Nhân sự vào ca", value: "8/9", detail: "1 người cần kiểm tra", owner: "ops", scope: "location", status: "demo", futureSource: "ops.attendance_summary.v1" },
-    taskCompletion: { id: "owner-task-completion", label: "Việc hoàn thành đúng", value: "17/20", detail: "2 việc đang trễ", owner: "ops", scope: "location", status: "demo", futureSource: "ops.task_completion.v1" },
-    customersToday: { id: "owner-customers-today", label: "Khách hôm nay", value: "29", detail: "23 quay lại · 6 khách mới", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.daily_customer_activity.v1" },
-    returningToday: { id: "owner-returning-today", label: "Khách quay lại", value: "23", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.daily_customer_activity.v1" },
-    newToday: { id: "owner-new-today", label: "Khách mới", value: "6", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.daily_customer_activity.v1" },
-    brandReadiness: { id: "owner-brand-readiness", label: "DNA thương hiệu", value: "82%", detail: "Còn 3 điểm chạm cần bổ sung", owner: "marketing", scope: "business", status: "demo", futureSource: "marketing.brand_dna_summary.v1" },
+    taskCompletion: { id: "owner-task-completion", label: "Việc đã hoàn thành", value: "17/20", detail: "2 việc đang trễ", owner: "ops", scope: "location", status: "demo", futureSource: "ops.task_completion.v1" },
+    loyaltySignalsToday: { id: "owner-loyalty-signals-today", label: "Tín hiệu Loyalty hôm nay", value: "29", detail: "23 hoạt động · 6 thành viên mới", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.activity_summary.v1" },
+    newToday: { id: "owner-new-today", label: "Thành viên mới", value: "6", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.customer_summary.v1" },
+    brandReadiness: { id: "owner-brand-readiness", label: "Điểm DNA mẫu", value: "82%", detail: "Demo score · 3 điểm chạm", owner: "marketing", scope: "business", status: "demo", futureSource: "marketing.brand_context.v1" },
     opsOverdue: { id: "owner-ops-overdue", label: "việc trễ", value: "2", owner: "ops", scope: "location", status: "demo", futureSource: "ops.task_attention.v1" },
     opsPendingReview: { id: "owner-ops-review", label: "chờ duyệt", value: "1", owner: "ops", scope: "location", status: "demo", futureSource: "ops.review_queue.v1" },
-    opsOpenIssues: { id: "owner-ops-issues", label: "sự cố mở", value: "1", owner: "ops", scope: "location", status: "demo", futureSource: "ops.open_issues.v1" },
-    opsCashDifference: { id: "owner-ops-cash", label: "lệch bàn giao", value: "0đ", owner: "ops", scope: "location", status: "demo", futureSource: "ops.shift_handover_summary.v1" },
     customerProfiles: { id: "owner-customer-profiles", label: "hồ sơ khách đã lưu", value: "486", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.customer_summary.v1" },
-    inactiveCustomers: { id: "owner-inactive-customers", label: "khách hơn 45 ngày chưa quay lại", value: "87", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.customer_segments.v1" },
+    inactiveCustomers: { id: "owner-inactive-customers", label: "thành viên không có hoạt động Loyalty trong 45 ngày", value: "87", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.retention_attention.v1" },
     vouchersToday: { id: "owner-vouchers-today", label: "voucher dùng hôm nay", value: "18", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.redemption_summary.v1" },
     gamePlaysToday: { id: "owner-game-plays", label: "lượt chơi", value: "42", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.activity_summary.v1" },
-    feedbackPending: { id: "owner-feedback-pending", label: "phản hồi cần xử lý", value: "1", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.feedback_attention.v1" },
     ideasToday: { id: "owner-ideas-today", label: "ý tưởng hôm nay", value: "4", owner: "marketing", scope: "business", status: "demo", futureSource: "marketing.daily_recommendation.v1" },
     touchpointsPending: { id: "owner-touchpoints-pending", label: "điểm chạm cần bổ sung", value: "3", owner: "marketing", scope: "business", status: "demo", futureSource: "marketing.brand_touchpoints.v1" },
   },
   branches: [
-    { name: "Nguyễn Thái Học", completion: { id: "branch-nth-completion", label: "Việc hoàn thành đúng", value: "85%", owner: "ops", scope: "location", status: "demo", futureSource: "ops.location_completion.v1" }, status: "2 việc trễ" },
-    { name: "Trần Phú", completion: { id: "branch-tp-completion", label: "Việc hoàn thành đúng", value: "94%", owner: "ops", scope: "location", status: "demo", futureSource: "ops.location_completion.v1" }, status: "Đúng nhịp" },
+    { locationId: demoLocations[0].id, completion: { id: "branch-nth-completion", label: "Việc đã hoàn thành", value: "85%", owner: "ops", scope: "location", status: "demo", futureSource: "ops.location_completion.v1" }, status: "2 việc trễ" },
+    { locationId: demoLocations[1].id, completion: { id: "branch-tp-completion", label: "Việc đã hoàn thành", value: "94%", owner: "ops", scope: "location", status: "demo", futureSource: "ops.location_completion.v1" }, status: "Đúng nhịp" },
   ],
   assignments: [
     { id: "a1", task: "Vệ sinh khu vực khách", assignee: "Linh", due: "18:45", status: "doing" },
@@ -320,8 +321,7 @@ export const ownerDashboardDemo: OwnerDashboardDemo = {
   priorities: [
     { id: "checkin", owner: "ops", scope: "location", status: "demo", futureSource: "ops.attendance_attention.v1", tone: "warning", area: "Nhân sự", title: "Nam chưa vào ca tối", detail: "Ca bắt đầu lúc 17:00", action: "assign", actionLabel: "Xử lý" },
     { id: "review", owner: "ops", scope: "location", status: "demo", futureSource: "ops.review_queue.v1", tone: "warning", area: "Vận hành", title: "1 việc chờ duyệt quá 15 phút", detail: "Đối soát quầy thu ngân", action: "assign", actionLabel: "Xem việc" },
-    { id: "inactive", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.customer_segments.v1", tone: "neutral", area: "Khách hàng", title: "87 khách hơn 45 ngày chưa quay lại", detail: "Có thể tạo một lời mời quay lại", action: "customers", actionLabel: "Chăm lại" },
-    { id: "feedback", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.feedback_attention.v1", tone: "neutral", area: "Khách hàng", title: "1 phản hồi 2 sao chưa trả lời", action: "feedback", actionLabel: "Phản hồi" },
+    { id: "inactive", owner: "loyalty", scope: "business", status: "demo", futureSource: "loyalty.retention_attention.v1", tone: "neutral", area: "Khách hàng", title: "87 thành viên không có hoạt động Loyalty trong 45 ngày", detail: "Có thể chuẩn bị một ưu đãi tái kích hoạt mẫu", action: "customers", actionLabel: "Xem nhóm" },
     { id: "dna", owner: "marketing", scope: "business", status: "demo", futureSource: "marketing.brand_dna_summary.v1", tone: "success", area: "Thương hiệu", title: "DNA còn thiếu 3 điểm chạm", detail: "Thông tin quán chưa hoàn chỉnh", action: "brand", actionLabel: "Bổ sung" },
   ],
   quickActions: [
@@ -331,8 +331,8 @@ export const ownerDashboardDemo: OwnerDashboardDemo = {
   ],
   productPreviews: [
     { product: "ops", eyebrow: "VẬN HÀNH QUÁN", title: "ANLIEN Ops", promise: "Vận hành", features: ["Ca làm", "Checklist", "SOP", "Công việc"], facts: ["8/9 đã vào ca", "17/20 việc hoàn thành"], href: "/demo/ops", actionLabel: "Xem cách vận hành" },
-    { product: "loyalty", eyebrow: "GIỮ KHÁCH", title: "ANLIEN Loyalty", promise: "Giữ khách", features: ["Khách hàng", "Voucher", "Điểm thưởng", "Phản hồi"], facts: ["486 hồ sơ khách", "87 khách cần chăm lại"], href: "/demo/loyalty", actionLabel: "Xem cách giữ khách" },
-    { product: "marketing", eyebrow: "XÂY THƯƠNG HIỆU", title: "ANLIEN Marketing", promise: "Xây thương hiệu và kéo khách", features: ["Brand DNA", "Ý tưởng", "Content", "Thiết kế"], facts: ["DNA 82%", "4 ý tưởng hôm nay"], href: "/demo/marketing", actionLabel: "Xem cách làm marketing" },
+    { product: "loyalty", eyebrow: "GIỮ KHÁCH", title: "ANLIEN Loyalty", promise: "Giữ khách", features: ["Khách hàng", "Voucher", "Điểm thưởng", "Trò chơi"], facts: ["486 hồ sơ thành viên", "87 thành viên ít hoạt động"], href: "/demo/loyalty", actionLabel: "Xem cách giữ khách" },
+    { product: "marketing", eyebrow: "XÂY THƯƠNG HIỆU", title: "ANLIEN Marketing", promise: "Xây thương hiệu và kéo khách", features: ["Brand DNA", "Ý tưởng", "Content", "Thiết kế"], facts: ["Demo score 82%", "4 ý tưởng hôm nay"], href: "/demo/marketing", actionLabel: "Xem cách làm marketing" },
   ],
 };
 
@@ -355,8 +355,8 @@ export const dayTimeline: DayMoment[] = [
     time: "14:00",
     label: "Khách hàng",
     product: "loyalty",
-    message: "87 khách lâu chưa quay lại.",
-    action: "Một lời mời quay lại đã được gợi ý.",
+    message: "87 thành viên không có hoạt động Loyalty trong 45 ngày.",
+    action: "Một ưu đãi tái kích hoạt mẫu đã được gợi ý.",
   },
   {
     time: "17:00",

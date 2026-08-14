@@ -34,7 +34,7 @@ const modalCopy: Record<string, { eyebrow: string; title: string; body: string; 
   },
   "Tạo ưu đãi": {
     eyebrow: "LOYALTY · DEMO",
-    title: "Mời đúng nhóm khách quay lại.",
+    title: "Chuẩn bị ưu đãi cho nhóm ít hoạt động.",
     body: "Loyalty sở hữu hồ sơ khách, Xu, voucher và redemption. Shell chỉ xem projection tổng hợp.",
     steps: ["Chọn nhóm khách", "Xem ưu đãi gợi ý", "Xác nhận trước khi gửi"],
   },
@@ -87,7 +87,7 @@ export function ShowroomApp({
             <span><small>Business</small><strong>{snapshot.business.name}</strong></span>
             <b aria-hidden="true">⌄</b>
           </button>
-          <div className="location-context"><small>Location</small><strong>Tất cả cơ sở</strong></div>
+          <div className="location-context"><small>Location</small><strong>{snapshot.locations.length > 1 ? "Tất cả cơ sở" : snapshot.locations[0]?.name ?? "Chưa có cơ sở"}</strong></div>
           {contextOpen ? (
             <div className="context-popover">
               <p className="eyebrow">BUSINESS CONTEXT</p>

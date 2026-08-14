@@ -1,7 +1,7 @@
 export type ProductKey = "marketing" | "loyalty" | "ops";
 export type ShellMode = "demo" | "authenticated";
 export type DataScope = "business" | "location";
-export type IntegrationStatus = "demo" | "not-connected";
+export type DataHealthStatus = "demo" | "live" | "stale" | "unavailable" | "error";
 export type ProductStatus = "healthy" | "attention" | "inactive";
 export type RoleKey = "owner" | "manager" | "marketing" | "staff";
 
@@ -32,7 +32,7 @@ export interface SummaryMetric {
   owner: ProductKey;
   futureSource: string;
   scope: DataScope;
-  status: IntegrationStatus;
+  status: DataHealthStatus;
 }
 
 export interface ProductAlert {
@@ -42,7 +42,7 @@ export interface ProductAlert {
   label: string;
   detail?: string;
   scope: DataScope;
-  status: IntegrationStatus;
+  status: DataHealthStatus;
 }
 
 export interface ProductSummary {
@@ -135,13 +135,13 @@ export interface OwnerAssignment {
   status: "doing" | "review" | "late";
 }
 
-export type OwnerActionKey = "assign" | "customers" | "idea" | "feedback" | "brand";
+export type OwnerActionKey = "assign" | "customers" | "idea" | "brand";
 
 export interface OwnerPriority {
   id: string;
   owner: ProductKey;
   scope: DataScope;
-  status: IntegrationStatus;
+  status: DataHealthStatus;
   futureSource: string;
   tone: "warning" | "neutral" | "success";
   area: string;
@@ -173,24 +173,20 @@ export interface OwnerDashboardDemo {
   metrics: {
     staffCheckIn: SummaryMetric;
     taskCompletion: SummaryMetric;
-    customersToday: SummaryMetric;
-    returningToday: SummaryMetric;
+    loyaltySignalsToday: SummaryMetric;
     newToday: SummaryMetric;
     brandReadiness: SummaryMetric;
     opsOverdue: SummaryMetric;
     opsPendingReview: SummaryMetric;
-    opsOpenIssues: SummaryMetric;
-    opsCashDifference: SummaryMetric;
     customerProfiles: SummaryMetric;
     inactiveCustomers: SummaryMetric;
     vouchersToday: SummaryMetric;
     gamePlaysToday: SummaryMetric;
-    feedbackPending: SummaryMetric;
     ideasToday: SummaryMetric;
     touchpointsPending: SummaryMetric;
   };
   branches: Array<{
-    name: string;
+    locationId: string;
     completion: SummaryMetric;
     status: string;
   }>;

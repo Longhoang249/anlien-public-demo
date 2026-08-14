@@ -1,5 +1,7 @@
 # CODEX BRIEF: ANLIEN CURRENT WEB STATE
 
+> Historical note, 2026-08-14: this brief describes the pre-audit V2.1 state. For current product truth, use `ANLIEN_REALITY_CONTRACT_AUDIT.md`, `ANLIEN_READ_PROJECTION_V1_PROPOSAL.md`, and `ANLIEN_SHELL_INTEGRATION_READINESS.md`.
+
 ## 0. Cách dùng tài liệu này
 
 Tài liệu này mô tả trạng thái hiện tại của ANLIEN Public Demo Shell để một GPT khác có thể:

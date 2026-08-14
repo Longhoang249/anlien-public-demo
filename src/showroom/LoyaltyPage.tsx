@@ -24,7 +24,7 @@ export function LoyaltyPage({
           <div className="product-hero__meta"><ScopeBadge scope="business" /></div>
           <p className="eyebrow">LOYALTY · GIỮ KHÁCH</p>
           <h1>Khách của quán đang thế nào?</h1>
-          <p>Ai đang gắn bó. Ai cần được chăm lại.</p>
+          <p>Ai đã được hệ thống nhận biết. Nhóm nào ít hoạt động.</p>
         </div>
         <div className="mini-status"><span>{memberMetric.value}</span><p>{memberMetric.label}</p></div>
       </header>
@@ -41,7 +41,7 @@ export function LoyaltyPage({
         <div><p className="eyebrow">ANLIEN ĐỀ XUẤT</p><h2>{snapshot.loyalty.recommendation}</h2></div>
         <div className="recommendation-band__actions">
           <button className="button button--light" onClick={() => setSelected("inactive")}>Xem nhóm khách</button>
-          <button className="button button--primary" onClick={() => onAction("Xem ưu đãi quay lại")}>Xem ưu đãi</button>
+          <button className="button button--primary" onClick={() => onAction("Xem ưu đãi tái kích hoạt mẫu")}>Xem ưu đãi</button>
         </div>
       </section>
 
@@ -69,7 +69,7 @@ export function LoyaltyPage({
           <h2>{snapshot.loyalty.offer.name}</h2>
           <p>{snapshot.loyalty.offer.value} · {snapshot.loyalty.offer.validity}</p>
           <dl>
-            <div><dt>Nhóm nhận</dt><dd>{inactiveGroup?.count ?? 0} khách lâu chưa quay lại</dd></div>
+            <div><dt>Nhóm nhận</dt><dd>{inactiveGroup?.count ?? 0} thành viên không có hoạt động Loyalty trong 45 ngày</dd></div>
             <div><dt>Trạng thái</dt><dd>{ready ? "Sẵn sàng gửi" : "Bản nháp"}</dd></div>
           </dl>
           <button className="button button--dark" onClick={() => setReady(true)}>

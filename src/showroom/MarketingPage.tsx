@@ -24,13 +24,13 @@ export function MarketingPage({
           <h1>Quán là ai. Hôm nay nên làm gì?</h1>
           <p>ANLIEN nhớ quán là ai.</p>
         </div>
-        <div className="mini-status brand-status"><span>{dna.readiness}%</span><p>DNA thương hiệu</p></div>
+        <div className="mini-status brand-status"><span>{dna.readiness}%</span><p>Điểm DNA mẫu</p></div>
       </header>
 
       <section className="brand-dna-card">
         <div className="brand-dna-card__title">
           <p className="eyebrow">DNA THƯƠNG HIỆU</p>
-          <h2>{dna.readiness}% hoàn thiện</h2>
+          <h2>{dna.readiness}% điểm mô phỏng</h2>
           <span className="live-dot">{dna.status}</span>
         </div>
         <dl>
