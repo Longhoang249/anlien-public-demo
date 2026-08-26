@@ -30,6 +30,9 @@ test("server-renders the ANLIEN public showroom", async () => {
   assert.match(html, /ANLIEN Marketing/);
   assert.match(html, /ANLIEN Loyalty/);
   assert.match(html, /ANLIEN Ops/);
+  assert.match(html, /ACCESS CONTEXT · SYNTHETIC/);
+  assert.match(html, /Demo Owner/);
+  assert.match(html, /Available/);
   assert.doesNotMatch(html, /PUBLIC PRODUCT SHOWROOM|Không cần đăng nhập|Bắt đầu ↓/);
   assert.doesNotMatch(html, /khách quay lại|chưa quay lại|phản hồi 2 sao|lệch bàn giao|sự cố mở/i);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);

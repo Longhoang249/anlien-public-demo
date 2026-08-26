@@ -1840,6 +1840,95 @@ select:focus-visible {
   .deep-tools-grid .product-preview { min-height: 340px; }
 }
 
+/* Phase 3 access foundation: synthetic context only, never an auth claim. */
+.access-foundation {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.8fr) minmax(0, 2fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 28px;
+  padding: 18px;
+  border: 1px solid #d9d4c8;
+  border-radius: 20px;
+  background: #fffaf0;
+}
+
+.access-foundation__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 8px;
+}
+
+.access-foundation__copy > strong { font-size: 18px; }
+.access-foundation__copy > span { color: var(--ink); font-size: 13px; font-weight: 650; }
+.access-foundation__copy > small { color: var(--muted); font-size: 11px; line-height: 1.5; }
+
+.product-launcher {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.product-launcher__item {
+  display: grid;
+  grid-template-columns: 34px 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.product-launcher__item > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--ink);
+  color: white;
+  font-weight: 800;
+}
+
+.product-launcher__item > div { display: flex; min-width: 0; flex-direction: column; }
+.product-launcher__item > div small { color: var(--muted); font-size: 10px; }
+.product-launcher__item > b { color: #39784c; font-size: 10px; white-space: nowrap; }
+.product-launcher__item.is-available:hover { border-color: var(--ink); transform: translateY(-1px); }
+.product-launcher__item.is-unavailable { background: #f3f1ec; opacity: 0.68; }
+.product-launcher__item.is-unavailable > b { color: var(--muted); }
+
+.business-options {
+  gap: 6px !important;
+  border-top: 0 !important;
+}
+
+.business-options button {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  text-align: left;
+}
+
+.business-options button[aria-current="true"] { border-color: var(--orange); background: var(--orange-soft); }
+
+@media (max-width: 1080px) {
+  .access-foundation { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .access-foundation { margin-top: 18px; padding: 14px; }
+  .product-launcher { grid-template-columns: 1fr; }
+}
+
 /* Owner dashboard */
 .dashboard-head {
   display: flex;
