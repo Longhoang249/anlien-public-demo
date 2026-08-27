@@ -1,14 +1,12 @@
 import type { AccessContext, BusinessAccess, ProductKey, ShellState } from "./shell";
 
 export interface AccessContextAdapter {
-  getAccessContext(): AccessContext;
+  getAccessContext(): AccessContext | Promise<AccessContext>;
 }
 
-// Future implementation boundary only. There is intentionally no concrete
-// Core client, credential, request, session bridge, or runtime connection.
-export interface CoreAccessContextAdapter extends AccessContextAdapter {
+export interface CoreAccessContextAdapterContract extends AccessContextAdapter {
   readonly kind: "core-access-context";
-  readonly connection: "not-configured";
+  readonly enabled: boolean;
 }
 
 export function getSelectedBusinessAccess(
@@ -41,7 +39,7 @@ export function getShellState(
   selectedBusinessId = context.selectedBusinessId,
 ): ShellState {
   if (context.mode === "PUBLIC_DEMO") return "PUBLIC_DEMO";
-  if (!context.account) return "SIGNED_IN_PLACEHOLDER";
+  if (context.failure !== "none" || !context.account) return "SIGNED_IN_PLACEHOLDER";
 
   const selected = getSelectedBusinessAccess(context, selectedBusinessId);
   if (!selected || selected.membership.status !== "active") return "SIGNED_IN_PLACEHOLDER";

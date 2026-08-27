@@ -14,6 +14,9 @@ export const demoAccessContext: AccessContext = {
   },
   selectedBusinessId: demoBusinessId,
   source: "synthetic",
+  health: "live",
+  failure: "none",
+  generatedAt: "2026-08-27T00:00:00.000Z",
   businesses: [
     {
       business: {

@@ -52,3 +52,14 @@ test("server-renders every product demo route", async () => {
     assert.match(await response.text(), expected, pathname);
   }
 });
+
+test("server-renders the synthetic private workspace preview", async () => {
+  const response = await render("/workspace");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /ANLIEN PRIVATE WORKSPACE · BUILD PREVIEW/);
+  assert.match(html, /Account → Business → sản phẩm/);
+  assert.match(html, /Nhiều Business/);
+  assert.match(html, /Product destinations vẫn để trống/);
+  assert.doesNotMatch(html, /service.role|access token|refresh token/i);
+});

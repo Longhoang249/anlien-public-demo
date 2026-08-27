@@ -8,6 +8,15 @@ export type ShellState =
   | "PRODUCT_UNAVAILABLE";
 export type DataScope = "business" | "location";
 export type DataHealthStatus = "demo" | "live" | "stale" | "unavailable" | "error";
+export type AccessHealthStatus = "live" | "stale" | "unavailable" | "error";
+export type AccessFailureReason =
+  | "none"
+  | "not_authenticated"
+  | "not_member"
+  | "not_entitled"
+  | "core_unavailable"
+  | "invalid_response"
+  | "adapter_error";
 export type ProductStatus = "healthy" | "attention" | "inactive";
 export type RoleKey = "owner" | "manager" | "marketing" | "staff";
 
@@ -50,7 +59,7 @@ export interface ProductEntitlement {
   id: string;
   businessId: string;
   product: ProductKey;
-  status: "active" | "inactive";
+  status: "active" | "inactive" | "missing";
 }
 
 export interface BusinessAccess {
@@ -60,11 +69,14 @@ export interface BusinessAccess {
 }
 
 export interface AccessContext {
-  mode: "PUBLIC_DEMO" | "SIGNED_IN_PLACEHOLDER";
+  mode: "PUBLIC_DEMO" | "SIGNED_IN_PLACEHOLDER" | "PRIVATE_WORKSPACE";
   account: AccountSummary | null;
   businesses: BusinessAccess[];
   selectedBusinessId: string | null;
-  source: "synthetic" | "core-placeholder";
+  source: "synthetic" | "core";
+  health: AccessHealthStatus;
+  failure: AccessFailureReason;
+  generatedAt: string;
 }
 
 export interface LocationContext {

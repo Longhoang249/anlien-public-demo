@@ -1,18 +1,10 @@
 import Link from "next/link";
+import { productDestinations } from "@/src/config/product-destinations";
 import { getSelectedBusinessAccess, isProductAvailable } from "@/src/contracts/access-context";
-import type { AccessContext, ProductKey } from "@/src/contracts/shell";
+import type { AccessContext } from "@/src/contracts/shell";
 import { Arrow } from "./ui";
 
-const products: Array<{
-  key: ProductKey;
-  label: string;
-  promise: string;
-  href: string;
-}> = [
-  { key: "marketing", label: "Marketing", promise: "Kéo khách", href: "/demo/marketing" },
-  { key: "loyalty", label: "Loyalty", promise: "Giữ khách", href: "/demo/loyalty" },
-  { key: "ops", label: "Ops", promise: "Vận hành tốt hơn", href: "/demo/ops" },
-];
+const products = Object.values(productDestinations);
 
 export function ProductLauncher({
   context,
@@ -23,11 +15,14 @@ export function ProductLauncher({
 }) {
   const selected = getSelectedBusinessAccess(context, selectedBusinessId);
   const membershipActive = selected?.membership.status === "active";
+  const accessContextLabel = `ACCESS CONTEXT · ${
+    context.source === "synthetic" ? "SYNTHETIC" : context.health.toUpperCase()
+  }`;
 
   return (
     <section className="access-foundation" aria-label="Bối cảnh truy cập ANLIEN">
       <div className="access-foundation__copy">
-        <p className="eyebrow">ACCESS CONTEXT · SYNTHETIC</p>
+        <p className="eyebrow">{accessContextLabel}</p>
         <strong>{context.account?.label ?? "Chưa có Account"}</strong>
         <span>
           {membershipActive
@@ -39,24 +34,30 @@ export function ProductLauncher({
 
       <div className="product-launcher">
         {products.map((product) => {
-          const available = isProductAvailable(context, product.key, selectedBusinessId);
+          const available = isProductAvailable(context, product.productId, selectedBusinessId);
+          const href = context.mode === "PUBLIC_DEMO" ? product.demoHref : product.privateHref;
+          const launchable = available && Boolean(href);
           const content = (
             <>
-              <span>{product.label.slice(0, 1)}</span>
-              <div><strong>{product.label}</strong><small>{product.promise}</small></div>
-              <b>{available ? "Available" : "Not enabled"}</b>
-              {available ? <Arrow /> : null}
+              <span>{product.displayName.slice(0, 1)}</span>
+              <div><strong>{product.displayName}</strong><small>{product.promise}</small></div>
+              <b>{available ? (launchable ? "Available" : "Available · destination pending") : "Not enabled"}</b>
+              {launchable ? <Arrow /> : null}
             </>
           );
 
-          return available ? (
-            <Link key={product.key} href={product.href} className="product-launcher__item is-available">
+          return launchable && href ? (
+            <Link
+              key={product.productId}
+              href={href}
+              className="product-launcher__item is-available"
+            >
               {content}
             </Link>
           ) : (
             <div
-              key={product.key}
-              className="product-launcher__item is-unavailable"
+              key={product.productId}
+              className={`product-launcher__item ${available ? "is-pending" : "is-unavailable"}`}
               aria-disabled="true"
             >
               {content}
