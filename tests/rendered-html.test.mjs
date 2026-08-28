@@ -31,11 +31,12 @@ test("server-renders the ANLIEN owner command center V3", async () => {
   assert.match(html, /Nguyễn Thái Học/);
   assert.match(html, /Trần Phú/);
   assert.match(html, /không có hoạt động Loyalty quan sát được trong 45 ngày/);
+  assert.match(html, /Không đồng nghĩa họ chưa quay lại quán/);
   assert.match(html, />Vận hành</);
   assert.match(html, />Khách hàng</);
   assert.match(html, />Thương hiệu</);
   assert.doesNotMatch(html, /PUBLIC PRODUCT SHOWROOM|Không cần đăng nhập|Bắt đầu ↓/);
-  assert.doesNotMatch(html, /khách quay lại|chưa quay lại|phản hồi 2 sao|lệch bàn giao|sự cố mở/i);
+  assert.doesNotMatch(html, /khách quay lại|phản hồi 2 sao|lệch bàn giao|sự cố mở/i);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
