@@ -9,11 +9,12 @@ import { MarketingPage } from "./MarketingPage";
 import { OpsPage } from "./OpsPage";
 import { OverviewPage } from "./OverviewPage";
 import { DemoBadge } from "./ui";
+import styles from "./command-center-v3.module.css";
 
 export type ShowroomPage = "overview" | "marketing" | "loyalty" | "ops" | "day";
 
 const navItems: Array<{
-  page: ShowroomPage;
+  page: Exclude<ShowroomPage, "day">;
   href: string;
   label: string;
   promise: string;
@@ -23,7 +24,6 @@ const navItems: Array<{
   { page: "marketing", href: "/demo/marketing", label: "Thương hiệu", promise: "DNA và ý tưởng", short: "Thương hiệu" },
   { page: "loyalty", href: "/demo/loyalty", label: "Khách hàng", promise: "Giữ khách", short: "Khách hàng" },
   { page: "ops", href: "/demo/ops", label: "Vận hành", promise: "Ca và SOP", short: "Vận hành" },
-  { page: "day", href: "/demo/day", label: "Một ngày", promise: "Hành trình", short: "Một ngày" },
 ];
 
 const modalCopy: Record<string, { eyebrow: string; title: string; body: string; steps?: string[] }> = {
@@ -73,9 +73,11 @@ export function ShowroomApp({
       }
     : null;
 
+  const openOwnerActions = snapshot.owner.priorities.length;
+
   return (
-    <div className={`app-shell app-shell--${page}`}>
-      <header className="topbar">
+    <div className={`app-shell app-shell--${page} ${styles.appShellV3}`}>
+      <header className={`topbar ${styles.topbarV3}`}>
         <Link href="/" className="wordmark" aria-label="ANLIEN · Trang chủ">
           <span className="wordmark__mark" aria-hidden="true"><i /></span>
           <span><strong>ANLIEN</strong><small>For better F&amp;B days</small></span>
@@ -100,17 +102,42 @@ export function ShowroomApp({
           ) : null}
         </div>
 
-        <nav className="desktop-nav" aria-label="Điều hướng chính">
-          {navItems.map((item) => (
-            <Link key={item.page} href={item.href} className={page === item.page ? "is-active" : ""}>{item.label}</Link>
-          ))}
-        </nav>
-
         <div className="topbar__actions">
           <DemoBadge compact />
           <button className="top-cta" onClick={() => openAction("Dùng ANLIEN cho quán của bạn")}>Dùng cho quán của bạn</button>
         </div>
       </header>
+
+      <aside className="sidebar" aria-label="Điều hướng chính">
+        <nav>
+          <Link href="/demo" className={page === "overview" ? "is-active" : ""}>
+            <span>01</span><div><small>Hôm nay</small><strong>Tổng quan</strong></div>
+          </Link>
+          <Link href="/demo#owner-inbox">
+            <span>02</span><div><small>Owner Inbox</small><strong>Cần xử lý</strong></div>
+            <b className={styles.sidebarInboxCount}>{openOwnerActions}</b>
+          </Link>
+
+          <div className={styles.sidebarDivider} />
+
+          {navItems.filter((item) => item.page !== "overview").map((item, index) => (
+            <Link key={item.page} href={item.href} className={page === item.page ? "is-active" : ""}>
+              <span>0{index + 3}</span><div><small>{item.promise}</small><strong>{item.label}</strong></div>
+            </Link>
+          ))}
+        </nav>
+
+        <div className={styles.sidebarSecondary}>
+          <div className={styles.sidebarDivider} />
+          <span className={styles.sidebarPlaceholder}>Báo cáo <small>Sắp có</small></span>
+          <span className={styles.sidebarPlaceholder}>Cài đặt <small>Sắp có</small></span>
+        </div>
+
+        <div className="shell-note">
+          <span>OWNER COMMAND CENTER</span>
+          <p>Quán trước. Ứng dụng sau.</p>
+        </div>
+      </aside>
 
       <main className="shell-main">
         {page === "overview" ? <OverviewPage snapshot={snapshot} /> : null}
@@ -128,7 +155,7 @@ export function ShowroomApp({
       <nav className="mobile-nav" aria-label="Điều hướng nhanh">
         {navItems.map((item) => (
           <Link key={item.page} href={item.href} className={page === item.page ? "is-active" : ""}>
-              <span>{item.page === "overview" ? "⌂" : item.page === "day" ? "↻" : item.page === "marketing" ? "T" : item.page === "loyalty" ? "K" : "N"}</span>
+            <span>{item.page === "overview" ? "⌂" : item.page === "marketing" ? "T" : item.page === "loyalty" ? "K" : "V"}</span>
             <small>{item.short}</small>
           </Link>
         ))}
