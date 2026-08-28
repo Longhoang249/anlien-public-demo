@@ -13,25 +13,30 @@ async function render(pathname = "/") {
   );
 }
 
-test("server-renders the ANLIEN public showroom", async () => {
+test("server-renders the ANLIEN owner command center V3", async () => {
   const response = await render("/");
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /Nắm quán\. Chốt việc\./);
   assert.match(html, /FnB Ăn Liền \(Demo quán\)/);
   assert.match(html, /Cần bạn xử lý/);
-  assert.match(html, /Phân công việc/);
-  assert.match(html, /Tín hiệu Loyalty hôm nay/);
-  assert.match(html, /DNA thương hiệu/);
+  assert.match(html, /Owner Inbox/i);
+  assert.match(html, /Một vòng là nắm được quán/);
+  assert.match(html, /VẬN HÀNH HÔM NAY/);
+  assert.match(html, /KHÁCH HÀNG HÔM NAY/);
+  assert.match(html, /THƯƠNG HIỆU &amp; MARKETING/);
+  assert.match(html, /CƠ HỘI &amp; RỦI RO/);
+  assert.match(html, /HOẠT ĐỘNG GẦN ĐÂY/);
   assert.match(html, /Demo score/);
   assert.match(html, /Nguyễn Thái Học/);
   assert.match(html, /Trần Phú/);
+  assert.match(html, /không có hoạt động Loyalty quan sát được trong 45 ngày/);
+  assert.match(html, /Không đồng nghĩa họ chưa quay lại quán/);
   assert.match(html, />Vận hành</);
-  assert.match(html, /ANLIEN Marketing/);
-  assert.match(html, /ANLIEN Loyalty/);
-  assert.match(html, /ANLIEN Ops/);
+  assert.match(html, />Khách hàng</);
+  assert.match(html, />Thương hiệu</);
   assert.doesNotMatch(html, /PUBLIC PRODUCT SHOWROOM|Không cần đăng nhập|Bắt đầu ↓/);
-  assert.doesNotMatch(html, /khách quay lại|chưa quay lại|phản hồi 2 sao|lệch bàn giao|sự cố mở/i);
+  assert.doesNotMatch(html, /khách quay lại|phản hồi 2 sao|lệch bàn giao|sự cố mở/i);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
