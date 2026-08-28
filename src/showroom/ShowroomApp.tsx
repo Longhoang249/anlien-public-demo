@@ -114,8 +114,7 @@ export function ShowroomApp({
             <span>01</span><div><small>Hôm nay</small><strong>Tổng quan</strong></div>
           </Link>
           <Link href="/demo#owner-inbox">
-            <span>02</span><div><small>Owner Inbox</small><strong>Cần xử lý</strong></div>
-            <b className={styles.sidebarInboxCount}>{openOwnerActions}</b>
+            <span>02</span><div><small>Owner Inbox</small><strong>Cần xử lý <b className={styles.sidebarInboxCount}>{openOwnerActions}</b></strong></div>
           </Link>
 
           <div className={styles.sidebarDivider} />
