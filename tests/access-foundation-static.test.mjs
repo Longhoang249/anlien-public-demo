@@ -47,16 +47,18 @@ test("keeps the concrete Core adapter disabled and fail-closed", async () => {
   }
   assert.doesNotMatch(adapter, /authorization|service.role|cookie/i);
   for (const wireField of [
-    "source_system_id",
-    "source_entity_type",
-    "source_entity_id",
+    "AuthenticatedCanonicalSessionV1",
+    "canonical_account_id",
+    "auth_subject",
+    "CanonicalAccessProjectionV1",
     "organization_id",
-    "display_name",
-    "entitlement_id",
-    "entitlement_status",
+    "business_id",
+    "AuthorizedOwnerContextV1",
   ]) {
     assert.match(apiContract, new RegExp(wireField));
   }
+  assert.match(adapter, /method: "GET"/);
+  assert.doesNotMatch(adapter, /JSON\.stringify|source_product|source_system_id|source_entity_id/);
   assert.match(destinations, /privateHref: null/g);
   assert.match(destinations, /independent_product_sign_in/g);
   assert.doesNotMatch(destinations, /https?:\/\//);

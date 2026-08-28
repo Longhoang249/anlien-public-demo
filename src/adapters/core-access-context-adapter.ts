@@ -1,23 +1,13 @@
 import type { CoreAccessContextAdapterContract } from "@/src/contracts/access-context";
-import type {
-  CoreAccessProjectionRequest,
-  CoreAccessProjectionV1,
-} from "@/src/contracts/core-access-api";
-import type {
-  AccessContext,
-  AccessFailureReason,
-  ProductKey,
-} from "@/src/contracts/shell";
+import type { AuthorizedOwnerContextEnvelopeV1 } from "@/src/contracts/core-access-api";
+import type { AccessContext, AccessFailureReason } from "@/src/contracts/shell";
 
 interface CoreAccessContextAdapterConfig {
   enabled?: boolean;
   endpoint?: string;
-  source?: CoreAccessProjectionRequest;
   fetchImpl?: typeof fetch;
   staleAfterMs?: number;
 }
-
-const products: ProductKey[] = ["marketing", "loyalty", "ops"];
 
 function failedContext(failure: AccessFailureReason): AccessContext {
   return {
@@ -32,100 +22,89 @@ function failedContext(failure: AccessFailureReason): AccessContext {
   };
 }
 
-function isProjection(value: unknown): value is CoreAccessProjectionV1 {
-  if (!value || typeof value !== "object") return false;
-  const projection = value as Partial<CoreAccessProjectionV1>;
-  if (
-    projection.contract !== "anlien_access_projection_v1" ||
-    typeof projection.generated_at !== "string" ||
-    !["READY", "ACCOUNT_UNRESOLVED", "ACCOUNT_INACTIVE", "NO_ACTIVE_MEMBERSHIP"].includes(
-      projection.state ?? "",
-    ) ||
-    !Array.isArray(projection.businesses)
-  ) {
-    return false;
+function mapFailure(state: AuthorizedOwnerContextEnvelopeV1["state"]): AccessFailureReason {
+  if (state === "UNAUTHENTICATED" || state === "SESSION_INVALID" || state === "SESSION_EXPIRED") {
+    return "not_authenticated";
   }
+  if (
+    state === "ACCOUNT_NOT_LINKED" ||
+    state === "ACCOUNT_INACTIVE" ||
+    state === "AMBIGUOUS_ACCOUNT" ||
+    state === "NO_MEMBERSHIP" ||
+    state === "LOCATION_NOT_AUTHORIZED"
+  ) {
+    return "not_member";
+  }
+  if (state === "NO_ENTITLEMENT") return "not_entitled";
+  if (state === "CANONICAL_ACCESS_UNAVAILABLE") return "core_unavailable";
+  return "invalid_response";
+}
 
-  return projection.businesses.every((entry) =>
-    Boolean(
-      entry?.business?.id &&
-        entry.business.organization_id &&
-        entry.business.display_name &&
-        entry.business.status === "active" &&
-        entry.membership?.id &&
-        entry.membership.status === "active" &&
-        Array.isArray(entry.products) &&
-        entry.products.length === products.length &&
-        products.every((product) =>
-          entry.products.some(
-            (candidate) =>
-              candidate.product === product &&
-              ["active", "inactive", "missing"].includes(candidate.entitlement_status) &&
-              typeof candidate.available === "boolean",
-          ),
-        ),
-    ),
-  );
+function isEnvelope(value: unknown): value is AuthorizedOwnerContextEnvelopeV1 {
+  if (!value || typeof value !== "object") return false;
+  const envelope = value as Partial<AuthorizedOwnerContextEnvelopeV1>;
+  return envelope.contract === "authorized_owner_context.v1" && typeof envelope.state === "string";
 }
 
 export class CoreAccessContextAdapter implements CoreAccessContextAdapterContract {
   readonly kind = "core-access-context" as const;
   readonly enabled: boolean;
   private readonly endpoint?: string;
-  private readonly source?: CoreAccessProjectionRequest;
   private readonly fetchImpl: typeof fetch;
   private readonly staleAfterMs: number;
 
   constructor(config: CoreAccessContextAdapterConfig = {}) {
     this.enabled = config.enabled ?? false;
     this.endpoint = config.endpoint;
-    this.source = config.source;
     this.fetchImpl = config.fetchImpl ?? fetch;
     this.staleAfterMs = config.staleAfterMs ?? 5 * 60 * 1000;
   }
 
   async getAccessContext(): Promise<AccessContext> {
     if (!this.enabled) return failedContext("not_authenticated");
-    if (!this.endpoint || !this.source) return failedContext("adapter_error");
+    if (!this.endpoint) return failedContext("adapter_error");
 
     try {
       const response = await this.fetchImpl(this.endpoint, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(this.source),
+        method: "GET",
         cache: "no-store",
       });
-      if (!response.ok) return failedContext("core_unavailable");
+      if (!response.ok) return failedContext(response.status === 401 ? "not_authenticated" : "core_unavailable");
 
-      const projection: unknown = await response.json();
-      if (!isProjection(projection)) return failedContext("invalid_response");
-      if (projection.state === "ACCOUNT_UNRESOLVED") return failedContext("not_authenticated");
-      if (projection.state === "ACCOUNT_INACTIVE") return failedContext("not_member");
-      if (projection.state === "NO_ACTIVE_MEMBERSHIP") return failedContext("not_member");
-      if (!projection.account) return failedContext("invalid_response");
+      const envelope: unknown = await response.json();
+      if (!isEnvelope(envelope)) return failedContext("invalid_response");
+      if (envelope.state !== "AUTHORIZED") return failedContext(mapFailure(envelope.state));
+      const projection = envelope.access;
+      if (!projection.account || projection.account.status !== "active") {
+        return failedContext("invalid_response");
+      }
 
       const generatedAt = Date.parse(projection.generated_at);
       const stale = !Number.isFinite(generatedAt) || Date.now() - generatedAt > this.staleAfterMs;
-      const businesses = projection.businesses.map((entry) => ({
+      const businesses = projection.businesses.map((business) => ({
         business: {
-          id: entry.business.id,
-          organizationId: entry.business.organization_id,
-          name: entry.business.display_name,
-          status: entry.business.status,
+          id: business.id,
+          organizationId: business.organization_id,
+          name: business.display_name,
+          status: business.status,
           synthetic: false,
         },
         membership: {
-          id: entry.membership.id,
+          id:
+            projection.memberships.find((membership) => membership.business_id === business.id)?.id ??
+            `missing-${business.id}`,
           accountId: projection.account!.id,
-          businessId: entry.business.id,
-          status: entry.membership.status,
+          businessId: business.id,
+          status: "active" as const,
         },
-        entitlements: entry.products.map((product) => ({
-          id: product.entitlement_id ?? `missing-${entry.business.id}-${product.product}`,
-          businessId: entry.business.id,
-          product: product.product,
-          status: product.entitlement_status,
-        })),
+        entitlements: projection.entitlements
+          .filter((entitlement) => entitlement.business_id === business.id)
+          .map((entitlement) => ({
+            id: entitlement.id ?? `missing-${business.id}-${entitlement.product}`,
+            businessId: business.id,
+            product: entitlement.product,
+            status: entitlement.status,
+          })),
       }));
 
       return {
@@ -137,14 +116,10 @@ export class CoreAccessContextAdapter implements CoreAccessContextAdapterContrac
           synthetic: false,
         },
         businesses,
-        selectedBusinessId: businesses[0]?.business.id ?? null,
+        selectedBusinessId: envelope.context.canonicalBusinessId,
         source: "core",
         health: stale ? "stale" : "live",
-        failure: businesses.some((business) =>
-          business.entitlements.some((entitlement) => entitlement.status === "active"),
-        )
-          ? "none"
-          : "not_entitled",
+        failure: "none",
         generatedAt: projection.generated_at,
       };
     } catch {
@@ -153,6 +128,6 @@ export class CoreAccessContextAdapter implements CoreAccessContextAdapterContrac
   }
 }
 
-// Activation requires an explicit trusted endpoint and exact source tuple.
-// The public demo never enables this instance and never carries Core credentials.
+// Activation remains explicit. The adapter calls only the same-origin BFF;
+// it never accepts an Account/source tuple and never carries a Core credential.
 export const coreAccessContextAdapter = new CoreAccessContextAdapter({ enabled: false });
