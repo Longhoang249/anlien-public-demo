@@ -81,3 +81,21 @@ Must capture:
 - PASS/BLOCKED outcome
 
 Do not advance `STATE.md` to M2-S2 until V-001 is complete and reviewed.
+
+### V-002 — PRE-UAT Shell stack normalization
+
+Date: 2026-08-29
+Status: VERIFIED LOCALLY; NOT DEPLOYED
+Evidence:
+- PR #4 (`feat/access-003-shell-auth-transport`) was reconciled with current `main` while
+  preserving the Owner Command Center V3 presentation and the ACCESS-003 fail-closed boundary.
+- PR #5 (`feat/runtime-002-secure-ops-gateway`) remains stacked on PR #4.
+- The useful unique PR #2 artifacts were retained: the mock `OpsOwnerProjectionProvider` adapter
+  and the detailed `ops_owner_projection.v1` consumer contract document.
+- PR #2's temporary validation workflow history and duplicate contract definition were not ported.
+- Node 22 local verification: lint, TypeScript, production build, and all tests passed.
+- Static secret/authority checks remain covered by ACCESS-003 and RUNTIME-002 tests.
+
+Interpretation:
+- GitHub stack is review-ready. This is build-time evidence only; no production environment,
+  runtime flag, secret, Supabase project, or deployment was changed.
