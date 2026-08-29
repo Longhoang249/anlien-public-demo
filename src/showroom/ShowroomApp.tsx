@@ -8,7 +8,9 @@ import { LoyaltyPage } from "./LoyaltyPage";
 import { MarketingPage } from "./MarketingPage";
 import { OpsPage } from "./OpsPage";
 import { OverviewPage } from "./OverviewPage";
+import { ProductLauncher } from "./ProductLauncher";
 import { DemoBadge } from "./ui";
+import { getSelectedBusinessAccess } from "@/src/contracts/access-context";
 import styles from "./command-center-v3.module.css";
 
 export type ShowroomPage = "overview" | "marketing" | "loyalty" | "ops" | "day";
@@ -55,6 +57,10 @@ export function ShowroomApp({
 }) {
   const [modal, setModal] = useState<string | null>(null);
   const [contextOpen, setContextOpen] = useState(false);
+  const [selectedBusinessId, setSelectedBusinessId] = useState(
+    snapshot.accessContext.selectedBusinessId ?? snapshot.business.id,
+  );
+  const selectedAccess = getSelectedBusinessAccess(snapshot.accessContext, selectedBusinessId);
 
   useEffect(() => {
     if (!modal) return;
@@ -84,17 +90,37 @@ export function ShowroomApp({
         </Link>
 
         <div className="topbar__context">
-          <button className="business-switcher" onClick={() => setContextOpen((value) => !value)} aria-expanded={contextOpen}>
+          <button
+            className="business-switcher"
+            onClick={() => setContextOpen((value) => !value)}
+            aria-expanded={contextOpen}
+            aria-controls="business-context-popover"
+          >
             <span className="business-switcher__avatar">F</span>
-            <span><small>Business</small><strong>{snapshot.business.name}</strong></span>
+            <span><small>Business</small><strong>{selectedAccess?.business.name ?? "Chưa chọn Business"}</strong></span>
             <b aria-hidden="true">⌄</b>
           </button>
           <div className="location-context"><small>Location</small><strong>{snapshot.locations.length > 1 ? "Tất cả cơ sở" : snapshot.locations[0]?.name ?? "Chưa có cơ sở"}</strong></div>
           {contextOpen ? (
-            <div className="context-popover">
+            <div className="context-popover" id="business-context-popover">
               <p className="eyebrow">BUSINESS CONTEXT</p>
-              <strong>{snapshot.business.name}</strong>
-              <span>Organization → Business → Location</span>
+              <strong>{snapshot.accessContext.account?.label ?? "Account placeholder"}</strong>
+              <span>1 Account → nhiều Business</span>
+              <div className="business-options" aria-label="Business demo">
+                {snapshot.accessContext.businesses.map(({ business, membership }) => (
+                  <button
+                    key={business.id}
+                    onClick={() => {
+                      setSelectedBusinessId(business.id);
+                      setContextOpen(false);
+                    }}
+                    aria-current={business.id === selectedBusinessId ? "true" : undefined}
+                  >
+                    <b>{business.name}</b>
+                    <small>Membership {membership.status}</small>
+                  </button>
+                ))}
+              </div>
               <div><b>Marketing &amp; Loyalty</b><small>Phạm vi toàn thương hiệu</small></div>
               <div><b>Ops</b><small>Có thể lọc theo cơ sở</small></div>
               <DemoBadge compact />
@@ -139,6 +165,7 @@ export function ShowroomApp({
       </aside>
 
       <main className="shell-main">
+        <ProductLauncher context={snapshot.accessContext} selectedBusinessId={selectedBusinessId} />
         {page === "overview" ? <OverviewPage snapshot={snapshot} /> : null}
         {page === "marketing" ? <MarketingPage snapshot={snapshot} onAction={openAction} /> : null}
         {page === "loyalty" ? <LoyaltyPage snapshot={snapshot} onAction={openAction} /> : null}

@@ -1,7 +1,22 @@
 export type ProductKey = "marketing" | "loyalty" | "ops";
 export type ShellMode = "demo" | "authenticated";
+export type ShellState =
+  | "PUBLIC_DEMO"
+  | "SIGNED_IN_PLACEHOLDER"
+  | "BUSINESS_SELECTED"
+  | "PRODUCT_AVAILABLE"
+  | "PRODUCT_UNAVAILABLE";
 export type DataScope = "business" | "location";
 export type DataHealthStatus = "demo" | "live" | "stale" | "unavailable" | "error";
+export type AccessHealthStatus = "live" | "stale" | "unavailable" | "error";
+export type AccessFailureReason =
+  | "none"
+  | "not_authenticated"
+  | "not_member"
+  | "not_entitled"
+  | "core_unavailable"
+  | "invalid_response"
+  | "adapter_error";
 export type ProductStatus = "healthy" | "attention" | "inactive";
 export type RoleKey = "owner" | "manager" | "marketing" | "staff";
 
@@ -16,6 +31,52 @@ export interface BusinessContext {
   name: string;
   isDemo: boolean;
   status: "active" | "inactive";
+}
+
+export interface AccountSummary {
+  id: string;
+  label: string;
+  status: "active" | "inactive";
+  synthetic: boolean;
+}
+
+export interface BusinessSummary {
+  id: string;
+  organizationId: string;
+  name: string;
+  status: "active" | "inactive";
+  synthetic: boolean;
+}
+
+export interface BusinessMembership {
+  id: string;
+  accountId: string;
+  businessId: string;
+  status: "active" | "inactive";
+}
+
+export interface ProductEntitlement {
+  id: string;
+  businessId: string;
+  product: ProductKey;
+  status: "active" | "inactive" | "missing";
+}
+
+export interface BusinessAccess {
+  business: BusinessSummary;
+  membership: BusinessMembership;
+  entitlements: ProductEntitlement[];
+}
+
+export interface AccessContext {
+  mode: "PUBLIC_DEMO" | "SIGNED_IN_PLACEHOLDER" | "PRIVATE_WORKSPACE";
+  account: AccountSummary | null;
+  businesses: BusinessAccess[];
+  selectedBusinessId: string | null;
+  source: "synthetic" | "core";
+  health: AccessHealthStatus;
+  failure: AccessFailureReason;
+  generatedAt: string;
 }
 
 export interface LocationContext {
@@ -209,6 +270,7 @@ export interface DemoSnapshot {
   generatedAtLabel: string;
   organization: OrganizationContext;
   business: BusinessContext;
+  accessContext: AccessContext;
   locations: LocationContext[];
   summaries: Record<ProductKey, ProductSummary>;
   marketing: MarketingDemo;
